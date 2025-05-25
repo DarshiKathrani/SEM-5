@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        ones = ["zero","one","two","three","four","five","six","seven","eight","nine"]
+        teens = ["ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"]
+        tens = ["","","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"]
+        n = parseInt(prompt("Enter a number"));
+        word = ""
+        if(isNaN(n)){
+            document.write("This is not a number");
+        }
+        else if (n<0 || n>999){
+            document.write("You have entered invalid number");
+        }
+        else{
+            if(n<10){
+                word = ones[n]
+            }
+            else if (n<20){
+                word = teens[n-10];
+            }
+            else if (n<100){
+                word = tens[Math.floor(n/10)]+" "
+                if (n%10!=0){
+                    word+=ones[n%10];
+                }
+            }
+            else if (n>=100 && n<=999){
+                word = ones[Math.floor(n/100)]+" hundred "
+                r = n % 100
+                if(r > 0){
+                    word += "and "
+                    if (r<10){
+                        word += ones[r]
+                    }
+                    else if (r<20){
+                        word+= teens[r-10]
+                    }
+                    else{
+                        word += tens[Math.floor(r/10)]
+                        if (r%10!=0){
+                            word+=ones[r%10]
+                        }
+                    }
+                }
+            }
+        }
+        document.write (word)
+    </script>
+</body>
+</html>

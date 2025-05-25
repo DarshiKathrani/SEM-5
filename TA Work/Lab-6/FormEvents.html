@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form onsubmit="onSubmit(event)" onreset="onReset()">
+        <label>Username</label>
+        <input type="text" onblur="onBlur()" onfocus="onFocus()" onchange="onChange()" onselect="onSelect()"/>
+        <button type="submit" >Submit</button>
+        <button type="reset" >Reset</button>
+    </form>
+    <script>
+        function onBlur(){
+            console.log("Text box is  blurred")
+        }
+        function onFocus(){
+            console.log("Text box is on focus")
+        }
+        function onChange(){
+            console.log("Some changes are made")
+        }
+        function onSelect(){
+            console.log("Some content is changed")
+        }
+        function onSubmit(event){
+            event.preventDefault()
+            console.log("Form is submitted")
+        }
+        function  onReset(){
+            console.log("Form is being reset")
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        sentence = ["this", "is", "javascript","demo", "of","WT"]
+        word = prompt('Enter the word to find')
+        wordIdx = -1
+        for (i in sentence) {
+            if(sentence[i].toLowerCase()==word.toLowerCase()){
+                wordIdx = i
+                break
+            }
+        }
+        if(wordIdx==-1){
+            document.write("Given word is not present in sentence")
+        }
+        else{
+            document.write("Your word is at index ",wordIdx)
+        }
+    </script>
+</body>
+</html>

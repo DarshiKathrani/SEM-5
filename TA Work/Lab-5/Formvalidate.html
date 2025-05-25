@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form onsubmit="return validateForm(event)">
+        <div>
+            <label>Username</label>
+            <input type="text" id="username"/>
+        </div>
+        <div>
+            <label>Password>
+            <input type="password" id="password"/>
+        </div>
+        <div>
+            <label>Confirm Password</label>
+            <input type="password" id="password1"/>
+        </div>
+        <div>
+            <label>Age</label>
+            <input type="text" id="age"/>
+        </div>
+        <div>
+            <label>Enrollment</label>
+            <input  type="text" id="enroll"/>
+        </div>
+        <div>
+            <label>Email</label>
+            <input type="text" id="email"/>
+        </div>
+        <div>
+            <button onclick="onSubmit1()">Submit</button>
+            <span id="error"></span>
+        </div>
+    </form>
+    <script>
+        function validateForm(event) {
+            event.preventDefault(); 
+        }
+        function onSubmit1(){
+        username = document.getElementById("username").value
+        password = document.getElementById("password").value
+        confirmPassword = document.getElementById("password1").value
+        age = document.getElementById("age").value
+        enrollment = document.getElementById("enroll").value
+        email = document.getElementById("email").value
+        error = document.getElementById("error")
+        if(username.length < 8){
+            error.innerText = "You have entered invalid username"
+            return false
+        }
+
+        passwordPattern = /^(?=.*\d)(?=.*[^A-Za-z0-9]).{8,12}$/;
+        enrollPattern = /^\d{11}$/
+        emailPattern = /^[^\s@]+@[^\s@]+.[^\s@]+$/
+
+        if(!passwordPattern.test(password)){
+            error.innerText = "You have entered invalid password"
+            return false
+        }
+
+        if(password != confirmPassword){
+            error.innerText = "Passwords don't match"
+            return false
+        }
+
+        if(age<=18){
+            error.innerText = "You are below 18 years"
+            return false
+        }
+        if(!enrollPattern.test(enrollment)){
+            error.innerText = "You have entered invalid enrollment number"
+            return false
+        }
+        if(!emailPattern.test(email)){
+            error.innerText = "You have entered invalid email"
+            return false
+        }
+    }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" onkeypress="detectvowel(event)"  />
+    <script>
+        function detectvowel(v){
+            if(v.key=='a'||v.key=='e'|| v.key=='i'|| v.key=='o' || v.key=='u'|| v.key=='A'||v.key=='E'||v.key=='I'||v.key=='O'||v.key=='U'){
+                function changeBg(){
+                    document.body.style.backgroundColor = "blue"
+                }
+                alert("You have entered vowel")
+                 
+            }
+            else{
+                alert("You have entered a consonant")
+            }
+            changeBg() 
+        }
+       
+         
+    </script>
+</body>
+</html>

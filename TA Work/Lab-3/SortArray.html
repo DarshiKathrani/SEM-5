@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        n = parseInt(prompt("Enter the length of array"))
+        nums=[]
+        for(i=0;i<n;i++){
+            nums[i] = parseInt(prompt("Enter the element at position "+(i+1)))
+        }
+        for(i=0;i<nums.length-1;i++){
+            minIdx = i
+            for(j=i+1;j<nums.length;j++){
+                if(nums[j]<nums[minIdx]){
+                    minIdx = j
+                }
+            }
+            temp = nums[i]
+            nums[i] = nums[minIdx]
+            nums[minIdx] = temp
+        }
+        document.write(nums)
+
+    </script>
+</body>
+</html>

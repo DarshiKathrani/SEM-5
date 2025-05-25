@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Login Page</h2>
+    <label>Username</label>
+    <input type="text" id="username"/>
+    <label>Password</label>
+    <input type="password" id = "password" />
+
+    <button onclick="login()">Login</button>
+    <span id="message"></span>
+    <script>
+        function login(){
+        user1 = "darshi"
+        password1 = "darshi@123"
+        
+        username = document.getElementById("username").value
+        password = document.getElementById("password").value
+
+        if(user1==username && password1==password){
+            document.getElementById("message").innerHTML = "<h5>"+"this is correct detail"+"</h5>"
+        }
+        else{
+            document.getElementById("message").innerHTML = "<h5>"+"this is incorrect detail"+"</h5>"
+        }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Snake Game</title>
+  <style>
+    body {
+      background: #111;
+      color: white;
+      text-align: center;
+      font-family: sans-serif;
+    }
+
+    #scoreBoard {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    #game {
+       position: relative;
+      width: 400px;
+      height: 400px;
+      background: black;
+      margin: 20px auto;
+      border: 2px solid white;
+      overflow: hidden;
+    }
+
+    .snake {
+      width: 20px;
+      height: 20px;
+      background: lime;
+      position: absolute;
+    }
+
+    .food {
+      width: 20px;
+      height: 20px;
+      background: red;
+      position: absolute;
+    }
+    #gameOverScreen {
+      display: none;
+      color: yellow;
+      font-size: 24px;
+      margin-top: 20px;
+    }
+
+    #restartBtn {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+      background: green;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h2 style="text-align:center;">Super Simple Snake Game</h2>
+<div id="scoreBoard">Score: <span id="score">1</span></div>
+<div id="game"></div>
+<div id="gameOverScreen">
+    Game Over!<br>
+    Final Score: <span id="finalScore">0</span><br>
+    <button id="restartBtn">Restart Game</button>
+  </div>
+
+<script>
+  let game = document.getElementById("game");
+  let scoreDisplay = document.getElementById("score");
+  let finalScoreDisplay = document.getElementById("finalScore");
+  let gameOverScreen = document.getElementById("gameOverScreen");
+  let restartBtn = document.getElementById("restartBtn");
+  let snake = [];
+  let direction = "RIGHT";
+  let food = {};
+  let gameLoop;
+  let gameOver = false;
+
+  const boxSize = 20;
+  const gameSize = 400;
+
+  function resetGame() {
+      direction = "RIGHT";
+      snake = [{ x: 100, y: 100 }];
+      placeFood();
+      gameOver = false;
+      scoreDisplay.textContent = "1";
+      gameOverScreen.style.display = "none";
+      drawGame();
+      clearInterval(gameLoop);
+      gameLoop = setInterval(moveSnake, 200);
+    }
+    function endGame() {
+      clearInterval(gameLoop);
+      gameOver = true;
+      finalScoreDisplay.textContent = snake.length;
+      gameOverScreen.style.display = "block";
+    }
+
+  function drawGame() {
+    game.innerHTML = "";
+    snake.forEach(part => {
+      let div = document.createElement("div");
+      div.className = "snake";
+      div.style.left = part.x + "px";
+      div.style.top = part.y + "px";
+      game.appendChild(div);
+    });
+
+    let f = document.createElement("div");
+    f.className = "food";
+    f.style.left = food.x + "px";
+    f.style.top = food.y + "px";
+    game.appendChild(f);
+  }
+
+  function moveSnake() {
+    let head = { ...snake[0] };
+
+    if (direction == "RIGHT") head.x += boxSize;
+    else if (direction == "LEFT") head.x -= boxSize;
+    else if (direction == "UP") head.y -= boxSize;
+    else if (direction == "DOWN") head.y += boxSize;
+
+    if (head.x < 0 || head.x >= gameSize || head.y < 0 || head.y >= gameSize) {
+      return endGame();
+    }
+
+    for (let part of snake) {
+      if (part.x === head.x && part.y === head.y) {
+        return endGame();
+      }
+    }
+
+    snake.unshift(head);
+
+    if (head.x === food.x && head.y === food.y) {
+      placeFood();
+      scoreDisplay.textContent = snake.length;
+    } else {
+      snake.pop();
+    }
+
+    drawGame();
+  }
+
+  function placeFood() {
+    food.x = Math.floor(Math.random() * (gameSize / boxSize)) * boxSize;
+    food.y = Math.floor(Math.random() * (gameSize / boxSize)) * boxSize;
+  }
+
+  document.onkeydown = function(e) {
+    if (e.key === "ArrowUp" && direction !== "DOWN") direction = "UP";
+    else if (e.key === "ArrowDown" && direction !== "UP") direction = "DOWN";
+    else if (e.key === "ArrowLeft" && direction !== "RIGHT") direction = "LEFT";
+    else if (e.key === "ArrowRight" && direction !== "LEFT") direction = "RIGHT";
+  }
+   restartBtn.onclick = resetGame;
+   resetGame();
+</script>
+</body>
+</html>

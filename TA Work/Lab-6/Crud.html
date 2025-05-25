@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>
+		Document
+	</title>
+	<style type="text/css">
+		#form,#result{
+			width: 50%;
+			float: left;
+		}
+		#errmsg{
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="form">
+		<input type="text" id="textname" >
+		<button onclick="adddata()">Add</button>
+		<br/>
+		<span id="errmsg"></span>
+	</div>
+
+	<div id="result"></div>
+
+	<script type="text/javascript">
+		data = ["darshi","mansi","nandani","shruti","riya"]
+        idToUpdate = -1
+
+        //read all data
+
+        function displaydata(){
+            temp = document.getElementById('result')
+            tempString = "<table border='1'>"
+                for (i=0;i<data.length;i++){
+                    tempString+="<tr>"
+                    tempString+="<td>"
+                    tempString+=data[i]
+                    tempString+="<td>"
+                    tempString+="<button onclick='deletedata("+i+")'>Delete</button>"
+					tempString+="</td>"
+					tempString+="<td>"
+					tempString+="<button onclick='setdata("+i+")'>Edit</button>"
+					tempString+="</td>"
+					tempString+="</tr>"
+					
+                }
+				tempString+="</table>"
+				temp.innerHTML = tempString
+        }
+		function adddata(){
+			tempdata = document.getElementById("textname")
+			if(tempdata.value==""){
+				document.getElementById('errmsg').value = "Please enter a name"
+			}
+			else{
+				if(idToUpdate>=0){
+					data[idToUpdate] = tempdata.value
+				}
+				else{
+					data.push(tempdata.value)
+				}
+				tempdata.value=""
+				displaydata()
+			}
+		}
+		function deletedata(id){
+			ans = confirm("Are you sure you want to delete this data")
+			if(ans){
+				data.splice(id,1)
+				displaydata()
+			}
+		}
+		function setdata(id){
+			idToUpdate = id
+			document.getElementById('textname').value = data[id]
+		}
+		displaydata()
+	</script>
+
+</body>
+</html>

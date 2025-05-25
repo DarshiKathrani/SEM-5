@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        arr = [10,56,2,12,67]
+        arr.push(45)
+        console.log("Element is pushed "+ arr)
+
+        arr.pop()
+        console.log("Element is popped "+arr)
+
+        arr.shift()
+        console.log("Element is removed from first place "+arr)
+
+        arr.unshift(1)
+        console.log("Element is added at first place "+arr)
+
+       arr1 =  arr.slice(1,4)
+        console.log("Elements from index 1 to 3 are displayed "+arr1)
+
+       arr.splice(1,1,11,13)
+       console.log('Element from 1st index with one element and inserts two elements '+arr)
+    </script>
+</body>
+</html>

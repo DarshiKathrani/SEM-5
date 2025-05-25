@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div style="height: 400px; width: 270px; background-color: blanchedalmond; padding-top: 10px;">
+        <div style="height: 70px; width: 240px; margin: 10px 10px 10px 10px; background-color: rgb(191, 115, 22);">
+            <input type="text" id="display" style="background-color: rgb(191, 115, 22); height: 70px; width: 240px;" />
+        </div>
+        <div style="height: 70px; width: 240px;">
+            <button style="height: 30px; width: 30px; background-color: rgb(191, 115, 22); margin: 10px 10px; color: white;" onclick="addvalue('7')">7</button>
+            <button style="height: 30px; width: 30px; background-color: rgb(191, 115, 22); margin: 10px 10px; color: white;" onclick="addvalue('8')">8</button>
+            <button style="height: 30px; width: 30px; background-color: rgb(191, 115, 22); margin: 10px 10px; color: white;" onclick="addvalue('9')">9</button>
+            <button style="height: 30px; width: 30px; background-color: rgb(191, 115, 22); margin: 10px 10px; color: white;" onclick="addvalue('*')">*</button>
+        </div>
+         <div style="height: 70px; width: 240px;">
+            <button style="height: 30px; width: 30px; background-color: rgb(191, 115, 22); margin: 10px 10px; color: white;" onclick="addvalue('4')">4</button>
+            <button style="height: 30px; width: 30px; background-color: rgb(191, 115, 22); margin: 10px 10px; color: white;" onclick="addvalue('5')">5</button>
+            <button style="height: 30px; width: 30px; background-color: rgb(191, 115, 22); margin: 10px 10px; color: white;" onclick="addvalue('6')">6</button>
+            <button style="height: 30px; width: 30px; background-color: rgb(191, 115, 22); margin: 10px 10px; color: white;" onclick="addvalue('-')">-</button>
+        </div>
+         <div style="height: 70px; width: 240px;">
+            <button style="height: 30px; width: 30px; background-color: rgb(191, 115, 22); margin: 10px 10px; color: white;" onclick="addvalue('1')">1</button>
+            <button style="height: 30px; width: 30px; background-color: rgb(191, 115, 22); margin: 10px 10px; color: white;" onclick="addvalue('2')">2</button>
+            <button style="height: 30px; width: 30px; background-color: rgb(191, 115, 22); margin: 10px 10px; color: white;" onclick="addvalue('3')">3</button>
+            <button style="height: 30px; width: 30px; background-color: rgb(191, 115, 22); margin: 10px 10px; color: white;" onclick="addvalue('+')">+</button>
+        </div>
+         <div style="height: 70px; width: 240px;">
+            <button style="height: 30px; width: 30px; background-color: rgb(191, 115, 22); margin: 10px 10px; color: white;" onclick="addvalue('0')">0</button>
+            <button style="height: 30px; width: 30px; background-color: rgb(191, 115, 22); margin: 10px 10px; color: white;" onclick="backValue()">CE</button>
+            <button style="height: 30px; width: 30px; background-color: rgb(191, 115, 22); margin: 10px 10px; color: white;" onclick="calulate()">=</button>
+            <button style="height: 30px; width: 30px; background-color: rgb(191, 115, 22); margin: 10px 10px; color: white;" onclick="clearAll()">AC</button>
+            <button style="height: 30px; width: 30px; background-color: rgb(191, 115, 22); margin: 10px 10px; color: white;" onclick="addvalue('/')">/</button>
+        </div>
+    </div>
+    <script>
+        var display = document.getElementById("display")
+        function addvalue(data){
+            display.value+=data
+        }
+        function calulate(){
+            operation = display.value
+            operator = null
+            arr = ['+','-','*','/']
+            opIdx = -1
+            for(i=0;i<arr.length;i++){
+                idx = operation.indexOf(arr[i])
+                if(idx>0){
+                    operator = arr[i]
+                    opIdx = idx
+                    break
+                }
+            }
+            if(opIdx==-1){
+                display.value = "Error"
+                return
+            }
+            num1 = parseFloat(operation.substring(0,opIdx))
+            num2 = parseFloat(operation.substring(opIdx+1))
+            result = 0
+           
+
+            if (operator=='+'){
+                result = num1+num2
+            }
+            else if(operator=='-'){
+               result = num1-num2
+            }
+           else if(operator == '*'){
+                result = num1*num2
+            }
+           else if (operator == '/'){
+                if(num2==0){
+                    dispalay.value = "Error"
+                    return
+                }
+                else{
+                    result = num1/num2
+                }
+                
+            }
+            display.value = result
+            
+        }
+        function backValue(){
+            display.value = display.value.substring(0,display.value.length-1)
+        }
+        function  clearAll(){
+            display.value = ""
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Student registration
+	</title>
+</head>
+<body>
+	<fieldset align="center">
+		<h1> Student registration</h1>
+		
+			<table align="center" cellpadding="10">
+
+				<tr>
+					<td>Username : </td>
+					<td><input type="text" id="name"></td>
+				</tr>
+
+				<tr>
+					<td>Password : </td>
+					<td><input type="Password" id="Password"></td>
+				</tr>
+
+				<tr>
+					<td>RepeatPassword : </td>
+					<td><input type="Password" id="RPassword"></td>
+				</tr>
+
+				<tr>
+					<td>MoblieNo. : </td>
+					<td><input type="number" id="contact"></td>
+				</tr>
+
+				<tr>
+					<td>Address : </td>
+					<td><input type="text" id="address"></td>
+				</tr>
+
+				<tr>
+					<td>Date Of Birth : </td>
+					<td><input type="date" id="DOB"></td>
+				</tr>
+
+				<tr>
+					<td>Gender : </td>
+					<td> <input type="radio" name="a">Male  <input type="radio" name="a">Female 
+					</td>
+				</tr>
+
+				<tr>
+					<td>Highest Degree : </td>
+					<td><select name="select degree">
+						<option selected disabled>Select Degree</option>
+						<option value="Btech">B.tech</option>
+						<option value="Bsc">B.sc</option>
+						<option value="Bcom">B.com</option>
+						<option value="Mtech">M.tech</option>
+						</select>
+					</td>
+				</tr>
+
+				<tr>
+					<td>CPI : </td>
+					<td><input type="text" id="cpi"></td>
+				</tr>
+
+				<tr>
+					<td>University : </td>
+					<td><input type="text"></td>
+				</tr>
+				
+			</table>
+			<button onclick="check()">Submit</button>
+                <p>Your Age: <span id="Age"></span></p>
+
+		
+	 </fieldset>
+
+	 <script type="text/javascript">
+	 			function check(){
+	 				validation();
+	 				calAge();
+	 			}
+
+
+	 		function validation() {
+	 			 let a=document.getElementById('name').value;
+	 			let b=document.getElementById("Password").value;
+	 			let rp=document.getElementById("RPassword").value;
+	 			let c=document.getElementById("contact").value;
+	 			let d=document.getElementById("address").value;
+	 			let e=document.getElementById("CPI").value;
+
+	 			let p1=/^(?=.*[!@#$%^&*])(?=.*[0-9])[A-Za-z0-9!@#$%^&*]{8,12}$/;
+				let regexp = new RegExp(p1);
+
+				let p2=/^[0-9]{10}$/;
+				let regexp1=new RegExp(p2);
+
+				let p3=/^2301[0-9]{7}$/;
+				let regexp2=new RegExp(p3);
+		
+		if(!a.length<8){
+			alert ("Username is not valid(username must be of minimum 8 characters)");
+			
+	 	}
+		
+		if(! b.length<8  || b.length>12){
+			alert("Password must be between 8 to 12 char");
+		}
+		else if(!regexp.test(b)){
+			alert("Password must contain at least 1 special char")
+		}
+		else if(b!=rp){
+			alert ("Password do not match");
+		}
+
+		if(c.length<10){
+			alret ("MobileNo is not valid ");
+			
+		}
+		else if(! regexp1.test(c)){
+			alert("MobileNo is not valid");
+		}
+	}
+
+  function calAge() {
+      let dob = new Date(document.getElementById('DOB').value);
+      let today = new Date();
+
+      let age = today.getFullYear() - dob.getFullYear();
+      let m = today.getMonth() - dob.getMonth();
+
+      if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+        age--;
+      }
+
+      document.getElementById("Age").innerText = age;
+
+      if (age < 18) {
+        alert("You must be at least 18 years old.");
+      }
+    }
+
+	</script>
+
+</body>
+</html>
