@@ -1,0 +1,175 @@
+@model List<CustomerModel>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-grocery-success alert-dismissible fade show">
+        <i class="fas fa-check-circle me-2"></i>
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-grocery-danger alert-dismissible fade show">
+        <i class="fas fa-exclamation-triangle me-2"></i>
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="page-header-modern">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="page-title">
+                <i class="fas fa-users text-primary me-3"></i>Customer Management
+            </h1>
+            <nav>
+                <ol class="breadcrumb breadcrumb-grocery">
+                    <li class="breadcrumb-item">
+                        <a href="@Url.Action("Index", "Home")">
+                            <i class="fas fa-home me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <i class="fas fa-table me-1"></i>Tables
+                    </li>
+                    <li class="breadcrumb-item active">Customer Data</li>
+                </ol>
+            </nav>
+        </div>
+        <div>
+            <a asp-action="AddEdit" asp-controller="Customer" class="btn btn-grocery">
+                <i class="fas fa-plus me-2"></i>Add Customer
+            </a>
+        </div>
+    </div>
+</div>
+
+<section class="section">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="grocery-card">
+                <div class="card-header-modern">
+                    <h3 class="card-title">
+                        <i class="fas fa-table me-2"></i>Customer Directory
+                    </h3>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table grocery-table table-hover mb-0 datatable">
+                            <thead>
+                                <tr>
+                                    <th><i class="fas fa-hashtag me-2"></i>Customer ID</th>
+                                    <th><i class="fas fa-user me-2"></i>Customer Name</th>
+                                    <th><i class="fas fa-phone me-2"></i>Phone</th>
+                                    <th><i class="fas fa-map-marker-alt me-2"></i>Address</th>
+                                    <th><i class="fas fa-envelope me-2"></i>Email</th>
+                                    <th class="text-center"><i class="fas fa-cog me-2"></i>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <span class="entity-id">#@item.CustomerID.ToString().PadLeft(4, '0')</span>
+                                            </td>
+                                            <td>
+                                                <div class="entity-info">
+                                                    <div class="entity-avatar">
+                                                        <i class="fas fa-user-circle"></i>
+                                                    </div>
+                                                    <div class="entity-details">
+                                                        <span class="entity-name">@item.CustomerName</span>
+                                                        <small class="entity-subtitle">Active Customer</small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a href="tel:@item.Phone" class="contact-link">
+                                                    <i class="fas fa-phone text-success me-2"></i>@item.Phone
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <div class="info-with-icon">
+                                                    <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                                                    <span class="info-text">@item.Address</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                @if (!string.IsNullOrEmpty(item.Email))
+                                                {
+                                                    <a href="mailto:@item.Email" class="contact-link">
+                                                        <i class="fas fa-envelope text-info me-2"></i>@item.Email
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-muted">
+                                                        <i class="fas fa-minus me-2"></i>No email
+                                                    </span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <div class="action-buttons text-center">
+                                                    <div class="btn-group" role="group">
+                                                        <a asp-action="AddEdit" asp-controller="Customer" asp-route-id="@item.CustomerID" 
+                                                           class="btn btn-sm btn-outline-success" title="Edit Customer">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                        <a asp-action="Delete" asp-controller="Customer" asp-route-id="@item.CustomerID" 
+                                                           class="btn btn-sm btn-outline-danger" title="Delete Customer"
+                                                           onclick="return confirm('Are you sure you want to delete this customer?');">
+                                                            <i class="fas fa-trash"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="6">
+                                            <div class="empty-state">
+                                                <div class="empty-state-icon">
+                                                    <i class="fas fa-users-slash"></i>
+                                                </div>
+                                                <h4 class="empty-state-title">No Customers Found</h4>
+                                                <p class="empty-state-text">
+                                                    You haven't added any customers yet. Start by adding your first customer.
+                                                </p>
+                                                <a asp-action="AddEdit" asp-controller="Customer" class="btn btn-grocery">
+                                                    <i class="fas fa-plus me-2"></i>Add First Customer
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/table-functions.js"></script>
+    <script>
+        // Auto-dismiss alerts only
+        setTimeout(function() {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                if (window.bootstrap && window.bootstrap.Alert) {
+                    const bsAlert = new bootstrap.Alert(alert);
+                    bsAlert.close();
+                }
+            });
+        }, 5000);
+    </script>
+}

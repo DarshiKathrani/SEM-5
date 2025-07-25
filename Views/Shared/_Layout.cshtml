@@ -36,149 +36,12 @@
     <!-- Custom Grocery Store Styles -->
     <link rel="stylesheet" href="~/css/grocery-theme.css">
 
-    <!-- Custom CSS for Grocery Store Theme -->
+    <!-- Custom CSS for Layout Specific Styles -->
     <style>
-        :root {
-            --primary-color: #2E8B57; /* Sea Green */
-            --secondary-color: #32CD32; /* Lime Green */
-            --accent-color: #FF6347; /* Tomato */
-            --text-dark: #2C3E50;
-            --text-light: #7F8C8D;
-            --success-color: #27AE60;
-            --warning-color: #F39C12;
-            --danger-color: #E74C3C;
-            --background-light: #F8F9FA;
-        }
-
-        .grocery-header {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .top-bar {
-            background: var(--text-dark);
-            color: white;
-            padding: 8px 0;
-        }
-
-        .grocery-logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-
-        .grocery-logo:hover {
-            color: var(--secondary-color);
-            text-decoration: none;
-        }
-
-        .nav-link {
-            font-weight: 500;
-            color: white !important;
-            transition: all 0.3s ease;
-        }
-
-        .nav-link:hover {
-            color: var(--accent-color) !important;
-            transform: translateY(-2px);
-        }
-
-        .dropdown-menu {
-            border-radius: 8px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            border: none;
-        }
-
-        .dropdown-item:hover {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .info-box {
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 10px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .info-box:hover {
-            transform: translateY(-5px);
-        }
-
-        .info-box-title {
-            color: var(--primary-color);
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            border: none;
-            border-radius: 25px;
-            padding: 10px 25px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .navbar-brand-icon {
-            font-size: 24px;
-            margin-right: 10px;
-            color: var(--secondary-color);
-        }
-
-        .footer {
-            background: linear-gradient(135deg, var(--text-dark) 0%, #1A252F 100%);
-        }
-
+        /* Layout specific overrides only */
         .main-content {
             min-height: calc(100vh - 400px);
             padding: 20px 0;
-            background: var(--background-light);
-        }
-
-        .social-icon {
-            display: inline-block;
-            width: 35px;
-            height: 35px;
-            line-height: 35px;
-            text-align: center;
-            border-radius: 50%;
-            background: var(--primary-color);
-            color: white;
-            margin: 0 5px;
-            transition: all 0.3s ease;
-        }
-
-        .social-icon:hover {
-            background: var(--accent-color);
-            transform: scale(1.1);
-        }
-
-        .navbar-toggler {
-            border: 2px solid white;
-        }
-
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-        }
-
-        @media (max-width: 768px) {
-            .top-info-box {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .info-box {
-                margin: 5px 0;
-            }
         }
     </style>
 </head>
@@ -285,129 +148,191 @@
             </div><!-- Container end -->
         </div>
 
-        <!-- Navigation -->
-        <div class="site-navigation" style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <nav class="navbar navbar-expand-lg navbar-dark p-0">
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-
-                            <div id="navbar-collapse" class="collapse navbar-collapse">
-                                <ul class="nav navbar-nav mr-auto">
-                                    <li class="nav-item dropdown">
-                                        <a href="@Url.Action("Index", "Home")" class="nav-link">
-                                            <i class="fas fa-home mr-2"></i>Dashboard
-                                        </a>
-                                    </li>
-
-                                    <li class="nav-item dropdown">
-                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                                            <i class="fas fa-users mr-2"></i>Customers <i class="fa fa-angle-down ml-1"></i>
-                                        </a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a class="dropdown-item" asp-action="Index" asp-controller="Customer">
-                                                <i class="fas fa-list mr-2"></i>View Customers</a></li>
-                                            <li><a class="dropdown-item" asp-action="AddEdit" asp-controller="Customer">
-                                                <i class="fas fa-user-plus mr-2"></i>Add Customer</a></li>
-                                        </ul>
-                                    </li>
-
-                                    <li class="nav-item dropdown">
-                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                                            <i class="fas fa-tags mr-2"></i>Categories <i class="fa fa-angle-down ml-1"></i>
-                                        </a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a class="dropdown-item" asp-action="CategoryList" asp-controller="ProductCategory">
-                                                <i class="fas fa-list mr-2"></i>View Categories</a></li>
-                                            <li><a class="dropdown-item" asp-action="AddEdit" asp-controller="ProductCategory">
-                                                <i class="fas fa-plus mr-2"></i>Add Category</a></li>
-                                        </ul>
-                                    </li>
-
-                                    <li class="nav-item dropdown">
-                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                                            <i class="fas fa-box mr-2"></i>Products <i class="fa fa-angle-down ml-1"></i>
-                                        </a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a class="dropdown-item" asp-action="ProductList" asp-controller="Product">
-                                                <i class="fas fa-list mr-2"></i>View Products</a></li>
-                                            <li><a class="dropdown-item" asp-action="AddEdit" asp-controller="Product">
-                                                <i class="fas fa-plus mr-2"></i>Add Product</a></li>
-                                        </ul>
-                                    </li>
-
-                                    <li class="nav-item dropdown">
-                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                                            <i class="fas fa-shopping-bag mr-2"></i>Orders <i class="fa fa-angle-down ml-1"></i>
-                                        </a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a class="dropdown-item" asp-action="OrderList" asp-controller="Order">
-                                                <i class="fas fa-list mr-2"></i>View Orders</a></li>
-                                            <li><a class="dropdown-item" asp-action="OrderDetailsList" asp-controller="OrderDetail">
-                                                <i class="fas fa-info-circle mr-2"></i>Order Details</a></li>
-                                        </ul>
-                                    </li>
-
-                                    <li class="nav-item dropdown">
-                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                                            <i class="fas fa-chart-bar mr-2"></i>Reports <i class="fa fa-angle-down ml-1"></i>
-                                        </a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a class="dropdown-item" href="#">
-                                                <i class="fas fa-chart-pie mr-2"></i>Sales Report</a></li>
-                                            <li><a class="dropdown-item" href="#">
-                                                <i class="fas fa-inventory mr-2"></i>Inventory Report</a></li>
-                                            <li><a class="dropdown-item" href="#">
-                                                <i class="fas fa-user-chart mr-2"></i>Customer Report</a></li>
-                                        </ul>
-                                    </li>
-
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="@Url.Action("Contact", "Home")">
-                                            <i class="fas fa-envelope mr-2"></i>Contact
-                                        </a>
-                                    </li>
-                                </ul>
-
-                                <!-- Right side navigation -->
-                                <ul class="nav navbar-nav ml-auto">
-                                    <li class="nav-item dropdown">
-                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                                            <i class="fas fa-user-circle mr-2"></i>Account <i class="fa fa-angle-down ml-1"></i>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                            <li><a class="dropdown-item" href="#">
-                                                <i class="fas fa-user mr-2"></i>Profile</a></li>
-                                            <li><a class="dropdown-item" href="#">
-                                                <i class="fas fa-cog mr-2"></i>Settings</a></li>
-                                            <li><div class="dropdown-divider"></div></li>
-                                            <li><a class="dropdown-item" href="#">
-                                                <i class="fas fa-sign-out-alt mr-2"></i>Logout</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav>
+        <!-- Modern Navigation -->
+        <div class="modern-navbar-wrapper">
+            <div class="container-fluid px-3">
+                <nav class="navbar navbar-expand-lg navbar-dark modern-navbar">
+                    <!-- Mobile Brand and Toggle -->
+                    <div class="d-flex d-lg-none align-items-center w-100">
+                        <a class="navbar-brand mobile-brand" href="@Url.Action("Index", "Home")">
+                            <i class="fas fa-shopping-cart brand-icon"></i>
+                            <span class="brand-text">FreshMart</span>
+                        </a>
+                        <button class="navbar-toggler modern-toggler ml-auto" type="button" data-toggle="collapse" data-target="#modern-navbar-collapse" aria-controls="modern-navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="toggler-line"></span>
+                            <span class="toggler-line"></span>
+                            <span class="toggler-line"></span>
+                        </button>
                     </div>
-                    <!--/ Col end -->
-                </div>
-                <!--/ Row end -->
 
-                <div class="nav-search">
-                    <span id="search"><i class="fa fa-search"></i></span>
-                </div><!-- Search end -->
+                    <div id="modern-navbar-collapse" class="collapse navbar-collapse">
+                        <!-- Main Navigation Items -->
+                        <ul class="navbar-nav modern-nav-items">
+                            <li class="nav-item modern-nav-item">
+                                <a href="@Url.Action("Index", "Home")" class="nav-link modern-nav-link">
+                                    <div class="nav-item-content">
+                                        <i class="fas fa-tachometer-alt nav-icon"></i>
+                                        <span class="nav-text">Dashboard</span>
+                                    </div>
+                                </a>
+                            </li>
 
-                <div class="search-block" style="display: none;">
-                    <label for="search-field" class="w-100 mb-0">
-                        <input type="text" class="form-control" id="search-field" placeholder="Search products, customers, orders...">
-                    </label>
-                    <span class="search-close">&times;</span>
-                </div><!-- Site search end -->
+                            <li class="nav-item dropdown modern-nav-item">
+                                <a href="#" class="nav-link dropdown-toggle modern-nav-link" data-toggle="dropdown">
+                                    <div class="nav-item-content">
+                                        <i class="fas fa-users nav-icon"></i>
+                                        <span class="nav-text">Customers</span>
+                                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                                    </div>
+                                </a>
+                                <div class="dropdown-menu modern-dropdown">
+                                    <a class="dropdown-item modern-dropdown-item" asp-action="Index" asp-controller="Customer">
+                                        <i class="fas fa-list-ul item-icon"></i>
+                                        <div class="item-content">
+                                            <span class="item-title">View Customers</span>
+                                            <span class="item-subtitle">Manage customer database</span>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item modern-dropdown-item" asp-action="AddEdit" asp-controller="Customer">
+                                        <i class="fas fa-user-plus item-icon"></i>
+                                        <div class="item-content">
+                                            <span class="item-title">Add Customer</span>
+                                            <span class="item-subtitle">Register new customer</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown modern-nav-item">
+                                <a href="#" class="nav-link dropdown-toggle modern-nav-link" data-toggle="dropdown">
+                                    <div class="nav-item-content">
+                                        <i class="fas fa-tags nav-icon"></i>
+                                        <span class="nav-text">Categories</span>
+                                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                                    </div>
+                                </a>
+                                <div class="dropdown-menu modern-dropdown">
+                                    <a class="dropdown-item modern-dropdown-item" asp-action="CategoryList" asp-controller="ProductCategory">
+                                        <i class="fas fa-th-large item-icon"></i>
+                                        <div class="item-content">
+                                            <span class="item-title">View Categories</span>
+                                            <span class="item-subtitle">Browse product categories</span>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item modern-dropdown-item" asp-action="AddEdit" asp-controller="ProductCategory">
+                                        <i class="fas fa-plus-circle item-icon"></i>
+                                        <div class="item-content">
+                                            <span class="item-title">Add Category</span>
+                                            <span class="item-subtitle">Create new category</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown modern-nav-item">
+                                <a href="#" class="nav-link dropdown-toggle modern-nav-link" data-toggle="dropdown">
+                                    <div class="nav-item-content">
+                                        <i class="fas fa-box nav-icon"></i>
+                                        <span class="nav-text">Products</span>
+                                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                                    </div>
+                                </a>
+                                <div class="dropdown-menu modern-dropdown">
+                                    <a class="dropdown-item modern-dropdown-item" asp-action="ProductList" asp-controller="Product">
+                                        <i class="fas fa-boxes item-icon"></i>
+                                        <div class="item-content">
+                                            <span class="item-title">View Products</span>
+                                            <span class="item-subtitle">Browse inventory</span>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item modern-dropdown-item" asp-action="AddEdit" asp-controller="Product">
+                                        <i class="fas fa-plus-square item-icon"></i>
+                                        <div class="item-content">
+                                            <span class="item-title">Add Product</span>
+                                            <span class="item-subtitle">Add to inventory</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown modern-nav-item">
+                                <a href="#" class="nav-link dropdown-toggle modern-nav-link" data-toggle="dropdown">
+                                    <div class="nav-item-content">
+                                        <i class="fas fa-shopping-bag nav-icon"></i>
+                                        <span class="nav-text">Orders</span>
+                                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                                    </div>
+                                </a>
+                                <div class="dropdown-menu modern-dropdown">
+                                    <a class="dropdown-item modern-dropdown-item" asp-action="OrderList" asp-controller="Order">
+                                        <i class="fas fa-receipt item-icon"></i>
+                                        <div class="item-content">
+                                            <span class="item-title">View Orders</span>
+                                            <span class="item-subtitle">Order management</span>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item modern-dropdown-item" asp-action="OrderDetailsList" asp-controller="OrderDetail">
+                                        <i class="fas fa-info-circle item-icon"></i>
+                                        <div class="item-content">
+                                            <span class="item-title">Order Details</span>
+                                            <span class="item-subtitle">Detailed order info</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown modern-nav-item">
+                                <a href="#" class="nav-link dropdown-toggle modern-nav-link" data-toggle="dropdown">
+                                    <div class="nav-item-content">
+                                        <i class="fas fa-chart-line nav-icon"></i>
+                                        <span class="nav-text">Reports</span>
+                                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                                    </div>
+                                </a>
+                                <div class="dropdown-menu modern-dropdown">
+                                    <a class="dropdown-item modern-dropdown-item" href="#">
+                                        <i class="fas fa-chart-pie item-icon"></i>
+                                        <div class="item-content">
+                                            <span class="item-title">Sales Report</span>
+                                            <span class="item-subtitle">Revenue analytics</span>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item modern-dropdown-item" href="#">
+                                        <i class="fas fa-warehouse item-icon"></i>
+                                        <div class="item-content">
+                                            <span class="item-title">Inventory Report</span>
+                                            <span class="item-subtitle">Stock analysis</span>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item modern-dropdown-item" href="#">
+                                        <i class="fas fa-user-chart item-icon"></i>
+                                        <div class="item-content">
+                                            <span class="item-title">Customer Report</span>
+                                            <span class="item-subtitle">Customer insights</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <!-- Simple Admin Actions -->
+                        <ul class="navbar-nav ml-auto admin-nav-right">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link admin-link">
+                                    <i class="fas fa-cog"></i>
+                                    <span class="d-none d-lg-inline-block ml-1">Settings</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link admin-link logout-link">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span class="d-none d-lg-inline-block ml-1">Logout</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
             </div>
-            <!--/ Container end -->
         </div>
         <!--/ Navigation end -->
     </header>
