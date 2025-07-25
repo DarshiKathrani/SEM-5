@@ -1,0 +1,593 @@
+@model List<CustomerModel>
+
+@{
+    ViewData["Title"] = "Customer Management";
+}
+
+<!-- Alert Messages -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-grocery-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle me-2"></i>
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-grocery-danger alert-dismissible fade show" role="alert">
+        <i class="fas fa-exclamation-triangle me-2"></i>
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<!-- Page Header -->
+<div class="page-header-modern">
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="page-title-section">
+            <h1 class="page-title">
+                <i class="fas fa-users text-primary me-3"></i>
+                Customer Management
+            </h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-grocery">
+                    <li class="breadcrumb-item">
+                        <a href="@Url.Action("Index", "Home")">
+                            <i class="fas fa-home me-1"></i>Dashboard
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <i class="fas fa-users me-1"></i>Customers
+                    </li>
+                    <li class="breadcrumb-item active">Customer List</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="page-actions">
+            <a asp-action="AddEdit" asp-controller="Customer" class="btn btn-grocery">
+                <i class="fas fa-plus me-2"></i>Add New Customer
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="content-wrapper">
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-number">@(Model?.Count ?? 0)</div>
+                <div class="stat-label">Total Customers</div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <div class="stat-number">@(Model?.Where(c => DateTime.Now.Subtract(DateTime.Parse(c.CustomerID.ToString())).Days <= 30).Count() ?? 0)</div>
+                <div class="stat-label">New This Month</div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <div class="stat-number">@(Model?.Where(c => !string.IsNullOrEmpty(c.Email)).Count() ?? 0)</div>
+                <div class="stat-label">Active Customers</div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="stat-number">85%</div>
+                <div class="stat-label">Retention Rate</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Table Card -->
+    <div class="grocery-card">
+        <div class="card-header-modern">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 class="card-title">
+                    <i class="fas fa-list me-2"></i>Customer Directory
+                </h3>
+                <div class="card-tools">
+                    <div class="search-enhanced">
+                        <input type="text" class="form-control" id="customerSearch" placeholder="Search customers...">
+                        <i class="fas fa-search search-icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card-body p-0">
+            @if (Model != null && Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table grocery-table table-hover mb-0" id="customerTable">
+                        <thead>
+                            <tr>
+                                <th class="sortable" data-sort="id">
+                                    <i class="fas fa-hashtag me-2"></i>ID
+                                    <i class="fas fa-sort sort-icon"></i>
+                                </th>
+                                <th class="sortable" data-sort="name">
+                                    <i class="fas fa-user me-2"></i>Customer Name
+                                    <i class="fas fa-sort sort-icon"></i>
+                                </th>
+                                <th class="sortable" data-sort="phone">
+                                    <i class="fas fa-phone me-2"></i>Phone
+                                    <i class="fas fa-sort sort-icon"></i>
+                                </th>
+                                <th class="sortable" data-sort="address">
+                                    <i class="fas fa-map-marker-alt me-2"></i>Address
+                                    <i class="fas fa-sort sort-icon"></i>
+                                </th>
+                                <th class="sortable" data-sort="email">
+                                    <i class="fas fa-envelope me-2"></i>Email
+                                    <i class="fas fa-sort sort-icon"></i>
+                                </th>
+                                <th class="text-center">
+                                    <i class="fas fa-cog me-2"></i>Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="customer-row">
+                                    <td>
+                                        <span class="customer-id">#@item.CustomerID.ToString().PadLeft(4, '0')</span>
+                                    </td>
+                                    <td>
+                                        <div class="customer-info">
+                                            <div class="customer-avatar">
+                                                <i class="fas fa-user-circle"></i>
+                                            </div>
+                                            <div class="customer-details">
+                                                <span class="customer-name">@item.CustomerName</span>
+                                                <small class="customer-since">Customer since 2024</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a href="tel:@item.Phone" class="phone-link">
+                                            <i class="fas fa-phone text-success me-2"></i>@item.Phone
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <div class="address-info">
+                                            <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                                            <span class="address-text">@item.Address</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(item.Email))
+                                        {
+                                            <a href="mailto:@item.Email" class="email-link">
+                                                <i class="fas fa-envelope text-info me-2"></i>@item.Email
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">
+                                                <i class="fas fa-minus me-2"></i>No email
+                                            </span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <div class="btn-group" role="group">
+                                                <a asp-action="Details" asp-controller="Customer" asp-route-id="@item.CustomerID" 
+                                                   class="btn btn-sm btn-outline-primary" title="View Details">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a asp-action="AddEdit" asp-controller="Customer" asp-route-id="@item.CustomerID" 
+                                                   class="btn btn-sm btn-outline-success" title="Edit Customer">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <button type="button" class="btn btn-sm btn-outline-danger" title="Delete Customer"
+                                                        onclick="confirmDelete(@item.CustomerID, '@item.CustomerName')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="table-footer">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="table-info">
+                            <span class="text-muted">
+                                Showing <strong>1-@Model.Count</strong> of <strong>@Model.Count</strong> customers
+                            </span>
+                        </div>
+                        <div class="pagination-wrapper">
+                            <nav aria-label="Customer pagination">
+                                <ul class="pagination pagination-sm mb-0">
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item active">
+                                        <a class="page-link" href="#">1</a>
+                                    </li>
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i class="fas fa-users-slash"></i>
+                    </div>
+                    <h4 class="empty-state-title">No Customers Found</h4>
+                    <p class="empty-state-text">
+                        You haven't added any customers yet. Start by adding your first customer to build your customer database.
+                    </p>
+                    <a asp-action="AddEdit" asp-controller="Customer" class="btn btn-grocery">
+                        <i class="fas fa-plus me-2"></i>Add First Customer
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-grocery">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">
+                    <i class="fas fa-exclamation-triangle me-2"></i>Confirm Delete
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete customer <strong id="customerNameToDelete"></strong>?</p>
+                <p class="text-muted">This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a href="#" id="confirmDeleteBtn" class="btn btn-danger">
+                    <i class="fas fa-trash me-2"></i>Delete Customer
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Search functionality
+        document.getElementById('customerSearch').addEventListener('keyup', function() {
+            const searchTerm = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#customerTable tbody tr');
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
+        });
+
+        // Sort functionality
+        document.querySelectorAll('.sortable').forEach(header => {
+            header.addEventListener('click', function() {
+                const table = document.getElementById('customerTable');
+                const tbody = table.querySelector('tbody');
+                const rows = Array.from(tbody.querySelectorAll('tr'));
+                const column = Array.from(this.parentNode.children).indexOf(this);
+                const sortIcon = this.querySelector('.sort-icon');
+                
+                // Reset all sort icons
+                document.querySelectorAll('.sort-icon').forEach(icon => {
+                    icon.className = 'fas fa-sort sort-icon';
+                });
+                
+                // Sort rows
+                const isAscending = sortIcon.classList.contains('fa-sort-up');
+                rows.sort((a, b) => {
+                    const aText = a.children[column].textContent.trim();
+                    const bText = b.children[column].textContent.trim();
+                    
+                    if (isAscending) {
+                        sortIcon.className = 'fas fa-sort-down sort-icon';
+                        return bText.localeCompare(aText);
+                    } else {
+                        sortIcon.className = 'fas fa-sort-up sort-icon';
+                        return aText.localeCompare(bText);
+                    }
+                });
+                
+                // Re-append sorted rows
+                rows.forEach(row => tbody.appendChild(row));
+            });
+        });
+
+        // Delete confirmation
+        function confirmDelete(customerId, customerName) {
+            document.getElementById('customerNameToDelete').textContent = customerName;
+            document.getElementById('confirmDeleteBtn').href = 
+                '@Url.Action("Delete", "Customer")' + '/' + customerId;
+            
+            const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
+            modal.show();
+        }
+
+        // Auto-dismiss alerts
+        setTimeout(function() {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                const bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            });
+        }, 5000);
+    </script>
+}
+
+<style>
+    /* Page Header */
+    .page-header-modern {
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        margin-bottom: 25px;
+        border-left: 4px solid var(--primary-color);
+    }
+
+    .page-title {
+        font-size: 28px;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 8px;
+    }
+
+    .page-actions .btn {
+        padding: 10px 20px;
+        font-weight: 600;
+    }
+
+    /* Content Wrapper */
+    .content-wrapper {
+        padding: 0;
+    }
+
+    /* Card Header */
+    .card-header-modern {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        padding: 20px 25px;
+        border-radius: 15px 15px 0 0;
+    }
+
+    .card-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0;
+        color: white;
+    }
+
+    .card-tools {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+    /* Customer Table Styles */
+    .grocery-table thead th {
+        background: transparent;
+        color: white;
+        font-weight: 600;
+        border: none;
+        padding: 15px;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .grocery-table tbody td {
+        padding: 15px;
+        vertical-align: middle;
+        border-top: 1px solid #f0f0f0;
+    }
+
+    .customer-row:hover {
+        background-color: rgba(46, 139, 87, 0.03);
+    }
+
+    /* Customer Info */
+    .customer-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .customer-avatar {
+        width: 40px;
+        height: 40px;
+        background: var(--primary-color);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 18px;
+    }
+
+    .customer-details {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .customer-name {
+        font-weight: 600;
+        color: var(--text-dark);
+        font-size: 14px;
+    }
+
+    .customer-since {
+        color: #7F8C8D;
+        font-size: 11px;
+    }
+
+    .customer-id {
+        font-weight: 600;
+        color: var(--primary-color);
+        background: rgba(46, 139, 87, 0.1);
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+    }
+
+    /* Links */
+    .phone-link, .email-link {
+        color: inherit;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+    }
+
+    .phone-link:hover, .email-link:hover {
+        text-decoration: underline;
+    }
+
+    .address-info {
+        display: flex;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .address-text {
+        line-height: 1.4;
+    }
+
+    /* Action Buttons */
+    .action-buttons .btn-group {
+        gap: 2px;
+    }
+
+    .action-buttons .btn {
+        padding: 6px 10px;
+        font-size: 12px;
+        border-radius: 4px;
+    }
+
+    /* Table Footer */
+    .table-footer {
+        padding: 20px 25px;
+        background: #f8f9fa;
+        border-radius: 0 0 15px 15px;
+        border-top: 1px solid #eee;
+    }
+
+    /* Empty State */
+    .empty-state {
+        text-align: center;
+        padding: 60px 40px;
+    }
+
+    .empty-state-icon {
+        font-size: 64px;
+        color: #ddd;
+        margin-bottom: 20px;
+    }
+
+    .empty-state-title {
+        color: var(--text-dark);
+        margin-bottom: 10px;
+    }
+
+    .empty-state-text {
+        color: #7F8C8D;
+        margin-bottom: 25px;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Sortable Headers */
+    .sortable {
+        cursor: pointer;
+        user-select: none;
+        position: relative;
+    }
+
+    .sortable:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .sort-icon {
+        float: right;
+        margin-top: 2px;
+        opacity: 0.5;
+        font-size: 10px;
+    }
+
+    .sortable:hover .sort-icon {
+        opacity: 1;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .page-header-modern {
+            padding: 20px;
+        }
+        
+        .page-title {
+            font-size: 24px;
+        }
+        
+        .d-flex.justify-content-between {
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .card-tools {
+            width: 100%;
+        }
+        
+        .search-enhanced {
+            width: 100%;
+        }
+        
+        .customer-info {
+            gap: 8px;
+        }
+        
+        .customer-avatar {
+            width: 35px;
+            height: 35px;
+            font-size: 16px;
+        }
+        
+        .table-responsive {
+            font-size: 13px;
+        }
+    }
+</style>
