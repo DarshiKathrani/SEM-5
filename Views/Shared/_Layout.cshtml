@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic Page Needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>FreshMart - Grocery Store Management System</title>
+
+    <!-- Mobile Specific Metas
+    ================================================== -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Modern Grocery Store Management System">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="author" content="FreshMart">
+    <meta name="generator" content="FreshMart Grocery Management System v1.0">
+
+    <!-- Favicon
+    ================================================== -->
+    <link rel="icon" type="image/png" href="~/images/favicon.png">
+
+    <!-- CSS
+    ================================================== -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="~/plugins/bootstrap/bootstrap.min.css">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="~/plugins/fontawesome/css/all.min.css">
+    <!-- Animation -->
+    <link rel="stylesheet" href="~/plugins/animate-css/animate.css">
+    <!-- slick Carousel -->
+    <link rel="stylesheet" href="~/plugins/slick/slick.css">
+    <link rel="stylesheet" href="~/plugins/slick/slick-theme.css">
+    <!-- Colorbox -->
+    <link rel="stylesheet" href="~/plugins/colorbox/colorbox.css">
+    <!-- Template styles-->
+    <link rel="stylesheet" href="~/css/style.css">
+    <!-- Custom Grocery Store Styles -->
+    <link rel="stylesheet" href="~/css/grocery-theme.css">
+
+    <!-- Custom CSS for Grocery Store Theme -->
+    <style>
+        :root {
+            --primary-color: #2E8B57; /* Sea Green */
+            --secondary-color: #32CD32; /* Lime Green */
+            --accent-color: #FF6347; /* Tomato */
+            --text-dark: #2C3E50;
+            --text-light: #7F8C8D;
+            --success-color: #27AE60;
+            --warning-color: #F39C12;
+            --danger-color: #E74C3C;
+            --background-light: #F8F9FA;
+        }
+
+        .grocery-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .top-bar {
+            background: var(--text-dark);
+            color: white;
+            padding: 8px 0;
+        }
+
+        .grocery-logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .grocery-logo:hover {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: white !important;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color) !important;
+            transform: translateY(-2px);
+        }
+
+        .dropdown-menu {
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            border: none;
+        }
+
+        .dropdown-item:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .info-box {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .info-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-box-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 25px;
+            padding: 10px 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .navbar-brand-icon {
+            font-size: 24px;
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+
+        .footer {
+            background: linear-gradient(135deg, var(--text-dark) 0%, #1A252F 100%);
+        }
+
+        .main-content {
+            min-height: calc(100vh - 400px);
+            padding: 20px 0;
+            background: var(--background-light);
+        }
+
+        .social-icon {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+            text-align: center;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        .navbar-toggler {
+            border: 2px solid white;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        @media (max-width: 768px) {
+            .top-info-box {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .info-box {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top Bar -->
+    <div id="top-bar" class="top-bar">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 col-md-8">
+                    <ul class="top-info text-center text-md-left list-unstyled mb-0">
+                        <li class="d-inline-block mr-4">
+                            <i class="fas fa-map-marker-alt text-success mr-2"></i>
+                            <span class="info-text">123 Fresh Street, Grocery District, City</span>
+                        </li>
+                        <li class="d-inline-block">
+                            <i class="fas fa-clock text-warning mr-2"></i>
+                            <span class="info-text">Mon-Sun: 6:00 AM - 10:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+                <!--/ Top info end -->
+
+                <div class="col-lg-4 col-md-4 top-social text-center text-md-right">
+                    <ul class="list-unstyled mb-0">
+                        <li class="d-inline-block">
+                            <a title="Facebook" href="#" class="social-icon">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a title="Twitter" href="#" class="social-icon">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a title="Instagram" href="#" class="social-icon">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a title="LinkedIn" href="#" class="social-icon">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!--/ Top social end -->
+            </div>
+            <!--/ Content row end -->
+        </div>
+        <!--/ Container end -->
+    </div>
+    <!--/ Topbar end -->
+
+    <!-- Header -->
+    <header id="header" class="header-one grocery-header">
+        <div class="bg-white">
+            <div class="container">
+                <div class="logo-area">
+                    <div class="row align-items-center">
+                        <div class="logo col-lg-3 text-center text-lg-left mb-3 mb-md-5 mb-lg-0">
+                            <a class="d-block grocery-logo" href="@Url.Action("Index", "Home")">
+                                <i class="fas fa-shopping-cart navbar-brand-icon"></i>
+                                FreshMart
+                            </a>
+                        </div><!-- logo end -->
+
+                        <div class="col-lg-9 header-right">
+                            <ul class="top-info-box d-flex flex-wrap justify-content-end align-items-center list-unstyled mb-0">
+                                <li class="mr-3">
+                                    <div class="info-box">
+                                        <div class="info-box-content">
+                                            <p class="info-box-title mb-1">
+                                                <i class="fas fa-phone-alt text-primary mr-2"></i>Call Us
+                                            </p>
+                                            <p class="info-box-subtitle mb-0">+1 (555) 123-4567</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="mr-3">
+                                    <div class="info-box">
+                                        <div class="info-box-content">
+                                            <p class="info-box-title mb-1">
+                                                <i class="fas fa-envelope text-primary mr-2"></i>Email Us
+                                            </p>
+                                            <p class="info-box-subtitle mb-0">info@freshmart.com</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="mr-3">
+                                    <div class="info-box">
+                                        <div class="info-box-content">
+                                            <p class="info-box-title mb-1">
+                                                <i class="fas fa-award text-primary mr-2"></i>Certified Store
+                                            </p>
+                                            <p class="info-box-subtitle mb-0">ISO 22000:2018</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="header-get-a-quote">
+                                    <a class="btn btn-primary" href="@Url.Action("Contact", "Home")">
+                                        <i class="fas fa-quote-right mr-2"></i>Get Quote
+                                    </a>
+                                </li>
+                            </ul><!-- Ul end -->
+                        </div><!-- header right end -->
+                    </div><!-- logo area end -->
+                </div><!-- Row end -->
+            </div><!-- Container end -->
+        </div>
+
+        <!-- Navigation -->
+        <div class="site-navigation" style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+
+                            <div id="navbar-collapse" class="collapse navbar-collapse">
+                                <ul class="nav navbar-nav mr-auto">
+                                    <li class="nav-item dropdown">
+                                        <a href="@Url.Action("Index", "Home")" class="nav-link">
+                                            <i class="fas fa-home mr-2"></i>Dashboard
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                            <i class="fas fa-users mr-2"></i>Customers <i class="fa fa-angle-down ml-1"></i>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a class="dropdown-item" asp-action="Index" asp-controller="Customer">
+                                                <i class="fas fa-list mr-2"></i>View Customers</a></li>
+                                            <li><a class="dropdown-item" asp-action="AddEdit" asp-controller="Customer">
+                                                <i class="fas fa-user-plus mr-2"></i>Add Customer</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="nav-item dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                            <i class="fas fa-tags mr-2"></i>Categories <i class="fa fa-angle-down ml-1"></i>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a class="dropdown-item" asp-action="CategoryList" asp-controller="ProductCategory">
+                                                <i class="fas fa-list mr-2"></i>View Categories</a></li>
+                                            <li><a class="dropdown-item" asp-action="AddEdit" asp-controller="ProductCategory">
+                                                <i class="fas fa-plus mr-2"></i>Add Category</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="nav-item dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                            <i class="fas fa-box mr-2"></i>Products <i class="fa fa-angle-down ml-1"></i>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a class="dropdown-item" asp-action="ProductList" asp-controller="Product">
+                                                <i class="fas fa-list mr-2"></i>View Products</a></li>
+                                            <li><a class="dropdown-item" asp-action="AddEdit" asp-controller="Product">
+                                                <i class="fas fa-plus mr-2"></i>Add Product</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="nav-item dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                            <i class="fas fa-shopping-bag mr-2"></i>Orders <i class="fa fa-angle-down ml-1"></i>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a class="dropdown-item" asp-action="OrderList" asp-controller="Order">
+                                                <i class="fas fa-list mr-2"></i>View Orders</a></li>
+                                            <li><a class="dropdown-item" asp-action="OrderDetailsList" asp-controller="OrderDetail">
+                                                <i class="fas fa-info-circle mr-2"></i>Order Details</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="nav-item dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                            <i class="fas fa-chart-bar mr-2"></i>Reports <i class="fa fa-angle-down ml-1"></i>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a class="dropdown-item" href="#">
+                                                <i class="fas fa-chart-pie mr-2"></i>Sales Report</a></li>
+                                            <li><a class="dropdown-item" href="#">
+                                                <i class="fas fa-inventory mr-2"></i>Inventory Report</a></li>
+                                            <li><a class="dropdown-item" href="#">
+                                                <i class="fas fa-user-chart mr-2"></i>Customer Report</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="@Url.Action("Contact", "Home")">
+                                            <i class="fas fa-envelope mr-2"></i>Contact
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <!-- Right side navigation -->
+                                <ul class="nav navbar-nav ml-auto">
+                                    <li class="nav-item dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                            <i class="fas fa-user-circle mr-2"></i>Account <i class="fa fa-angle-down ml-1"></i>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                            <li><a class="dropdown-item" href="#">
+                                                <i class="fas fa-user mr-2"></i>Profile</a></li>
+                                            <li><a class="dropdown-item" href="#">
+                                                <i class="fas fa-cog mr-2"></i>Settings</a></li>
+                                            <li><div class="dropdown-divider"></div></li>
+                                            <li><a class="dropdown-item" href="#">
+                                                <i class="fas fa-sign-out-alt mr-2"></i>Logout</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                    <!--/ Col end -->
+                </div>
+                <!--/ Row end -->
+
+                <div class="nav-search">
+                    <span id="search"><i class="fa fa-search"></i></span>
+                </div><!-- Search end -->
+
+                <div class="search-block" style="display: none;">
+                    <label for="search-field" class="w-100 mb-0">
+                        <input type="text" class="form-control" id="search-field" placeholder="Search products, customers, orders...">
+                    </label>
+                    <span class="search-close">&times;</span>
+                </div><!-- Site search end -->
+            </div>
+            <!--/ Container end -->
+        </div>
+        <!--/ Navigation end -->
+    </header>
+    <!--/ Header end -->
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            @RenderBody()
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer" class="footer bg-overlay">
+        <div class="footer-main">
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="col-lg-4 col-md-6 footer-widget footer-about">
+                        <h3 class="widget-title text-white">
+                            <i class="fas fa-shopping-cart mr-2"></i>FreshMart
+                        </h3>
+                        <p class="text-light">
+                            Your trusted grocery store management system. We provide fresh quality products with excellent service and modern technology to enhance your shopping experience.
+                        </p>
+                        <div class="footer-social">
+                            <ul class="list-unstyled d-flex">
+                                <li class="mr-2">
+                                    <a href="#" aria-label="Facebook" class="social-icon">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                </li>
+                                <li class="mr-2">
+                                    <a href="#" aria-label="Twitter" class="social-icon">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                </li>
+                                <li class="mr-2">
+                                    <a href="#" aria-label="Instagram" class="social-icon">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" aria-label="LinkedIn" class="social-icon">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div><!-- Footer social end -->
+                    </div><!-- Col end -->
+
+                    <div class="col-lg-4 col-md-6 footer-widget mt-5 mt-md-0">
+                        <h3 class="widget-title text-white">Store Hours</h3>
+                        <div class="working-hours text-light">
+                            <p>We're open 7 days a week to serve you better. Visit us for fresh groceries and excellent service.</p>
+                            <div class="hours-list mt-3">
+                                <div class="d-flex justify-content-between">
+                                    <span>Monday - Friday:</span>
+                                    <span class="text-success font-weight-bold">6:00 AM - 10:00 PM</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span>Saturday:</span>
+                                    <span class="text-success font-weight-bold">6:00 AM - 11:00 PM</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span>Sunday:</span>
+                                    <span class="text-success font-weight-bold">7:00 AM - 9:00 PM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- Col end -->
+
+                    <div class="col-lg-3 col-md-6 mt-5 mt-lg-0 footer-widget">
+                        <h3 class="widget-title text-white">Quick Links</h3>
+                        <ul class="list-arrow list-unstyled">
+                            <li><a href="#" class="text-light">Fresh Produce</a></li>
+                            <li><a href="#" class="text-light">Dairy Products</a></li>
+                            <li><a href="#" class="text-light">Meat & Seafood</a></li>
+                            <li><a href="#" class="text-light">Bakery Items</a></li>
+                            <li><a href="#" class="text-light">Beverages</a></li>
+                            <li><a href="#" class="text-light">Household Items</a></li>
+                        </ul>
+                    </div><!-- Col end -->
+                </div><!-- Row end -->
+            </div><!-- Container end -->
+        </div><!-- Footer main end -->
+
+        <div class="copyright">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="copyright-info">
+                            <span class="text-light">
+                                Copyright &copy; <script>document.write(new Date().getFullYear())</script>, 
+                                FreshMart Grocery Management System. All rights reserved.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="footer-menu text-center text-md-right">
+                            <ul class="list-unstyled d-flex justify-content-end mb-0">
+                                <li class="mr-3"><a href="#" class="text-light">Privacy Policy</a></li>
+                                <li class="mr-3"><a href="#" class="text-light">Terms of Service</a></li>
+                                <li class="mr-3"><a href="#" class="text-light">Support</a></li>
+                                <li><a href="#" class="text-light">FAQ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div><!-- Row end -->
+
+                <div id="back-to-top" data-spy="affix" data-offset-top="10" class="back-to-top position-fixed d-none">
+                    <button class="btn btn-primary" title="Back to Top">
+                        <i class="fa fa-angle-double-up"></i>
+                    </button>
+                </div>
+            </div><!-- Container end -->
+        </div><!-- Copyright end -->
+    </footer><!-- Footer end -->
+
+    <!-- Javascript Files
+    ================================================== -->
+    <!-- initialize jQuery Library -->
+    <script src="~/plugins/jQuery/jquery.min.js"></script>
+    <!-- Bootstrap jQuery -->
+    <script src="~/plugins/bootstrap/bootstrap.min.js" defer></script>
+    <!-- Slick Carousel -->
+    <script src="~/plugins/slick/slick.min.js"></script>
+    <script src="~/plugins/slick/slick-animation.min.js"></script>
+    <!-- Color box -->
+    <script src="~/plugins/colorbox/jquery.colorbox.js"></script>
+    <!-- shuffle -->
+    <script src="~/plugins/shuffle/shuffle.min.js" defer></script>
+
+    <!-- Google Map API Key-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU" defer></script>
+    <!-- Google Map Plugin-->
+    <script src="~/plugins/google-map/map.js" defer></script>
+
+    <!-- Template custom -->
+    <script src="~/js/script.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        // Back to top functionality
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 100) {
+                $('#back-to-top').removeClass('d-none');
+            } else {
+                $('#back-to-top').addClass('d-none');
+            }
+        });
+
+        $('#back-to-top').click(function () {
+            $('html, body').animate({ scrollTop: 0 }, 600);
+            return false;
+        });
+
+        // Search functionality
+        $('#search').click(function () {
+            $('.search-block').slideToggle();
+            $('#search-field').focus();
+        });
+
+        $('.search-close').click(function () {
+            $('.search-block').slideUp();
+        });
+
+        // Add active class to current nav item
+        $(document).ready(function () {
+            var currentPath = window.location.pathname;
+            $('.nav-link').each(function () {
+                var link = $(this).attr('href');
+                if (currentPath.includes(link) && link !== '/') {
+                    $(this).closest('.nav-item').addClass('active');
+                }
+            });
+        });
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
