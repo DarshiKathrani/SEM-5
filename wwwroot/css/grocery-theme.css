@@ -689,6 +689,341 @@
 
 
 /* ========================================
+   REUSABLE LIST VIEW STYLES
+   ======================================== */
+
+/* Page Header */
+.page-header-modern {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+
+.page-actions .btn {
+    padding: 10px 20px;
+    font-weight: 600;
+}
+
+/* Content Wrapper */
+.content-wrapper {
+    padding: 0;
+}
+
+/* Card Header */
+.card-header-modern {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 20px 25px;
+    border-radius: 15px 15px 0 0;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    color: white;
+}
+
+.card-tools {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Table Styles */
+.grocery-table thead th {
+    background: transparent;
+    color: white;
+    font-weight: 600;
+    border: none;
+    padding: 15px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.grocery-table tbody td {
+    padding: 15px;
+    vertical-align: middle;
+    border-top: 1px solid #f0f0f0;
+}
+
+.grocery-table tbody tr:hover {
+    background-color: rgba(46, 139, 87, 0.03);
+}
+
+/* Entity Info Styles (reusable for customer, product, etc.) */
+.entity-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.entity-avatar {
+    width: 40px;
+    height: 40px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+}
+
+.entity-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.entity-name {
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 14px;
+}
+
+.entity-subtitle {
+    color: #7F8C8D;
+    font-size: 11px;
+}
+
+.entity-id {
+    font-weight: 600;
+    color: var(--primary-color);
+    background: rgba(46, 139, 87, 0.1);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+/* Contact Links */
+.contact-link {
+    color: inherit;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.contact-link:hover {
+    text-decoration: underline;
+}
+
+.info-with-icon {
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+.info-text {
+    line-height: 1.4;
+}
+
+/* Action Buttons */
+.action-buttons .btn-group {
+    gap: 2px;
+}
+
+.action-buttons .btn {
+    padding: 6px 10px;
+    font-size: 12px;
+    border-radius: 4px;
+}
+
+/* Table Footer */
+.table-footer {
+    padding: 20px 25px;
+    background: #f8f9fa;
+    border-radius: 0 0 15px 15px;
+    border-top: 1px solid #eee;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px 40px;
+}
+
+.empty-state-icon {
+    font-size: 64px;
+    color: #ddd;
+    margin-bottom: 20px;
+}
+
+.empty-state-title {
+    color: var(--text-dark);
+    margin-bottom: 10px;
+}
+
+.empty-state-text {
+    color: #7F8C8D;
+    margin-bottom: 25px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Sortable Headers */
+.sortable {
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+}
+
+.sortable:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.sort-icon {
+    float: right;
+    margin-top: 2px;
+    opacity: 0.5;
+    font-size: 10px;
+}
+
+.sortable:hover .sort-icon {
+    opacity: 1;
+}
+
+/* Price/Currency Display */
+.price-display {
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 14px;
+}
+
+.price-currency {
+    font-size: 12px;
+    color: #7F8C8D;
+}
+
+/* Stock/Quantity Display */
+.stock-display {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.stock-level {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.stock-high {
+    background: rgba(39, 174, 96, 0.1);
+    color: #27AE60;
+}
+
+.stock-medium {
+    background: rgba(243, 156, 18, 0.1);
+    color: #F39C12;
+}
+
+.stock-low {
+    background: rgba(231, 76, 60, 0.1);
+    color: #E74C3C;
+}
+
+/* Category/Tag Display */
+.category-tag {
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 11px;
+    font-weight: 500;
+    background: rgba(46, 139, 87, 0.1);
+    color: var(--primary-color);
+}
+
+/* Date Display */
+.date-display {
+    color: #7F8C8D;
+    font-size: 13px;
+}
+
+.date-recent {
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+/* Export/Filter Controls */
+.table-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.filter-select {
+    min-width: 120px;
+    font-size: 13px;
+}
+
+.export-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 4px;
+}
+
+/* Responsive List Styles */
+@media (max-width: 768px) {
+    .page-header-modern {
+        padding: 20px;
+    }
+    
+    .page-title {
+        font-size: 24px;
+    }
+    
+    .d-flex.justify-content-between {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .card-tools {
+        width: 100%;
+    }
+    
+    .search-enhanced {
+        width: 100%;
+    }
+    
+    .entity-info {
+        gap: 8px;
+    }
+    
+    .entity-avatar {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+    
+    .table-responsive {
+        font-size: 13px;
+    }
+    
+    .table-controls {
+        justify-content: center;
+    }
+    
+    .action-buttons .btn-group {
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+/* ========================================
    RESPONSIVE STYLES - MEDIA QUERIES
    ======================================== */
 
