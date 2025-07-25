@@ -315,101 +315,19 @@
                             </li>
                         </ul>
 
-                        <!-- Right Side Items -->
-                        <ul class="navbar-nav ml-auto modern-nav-right">
-                            <!-- Search Bar -->
-                            <li class="nav-item search-item">
-                                <div class="search-container">
-                                    <input type="text" class="form-control search-input" placeholder="Search..." id="modern-search">
-                                    <i class="fas fa-search search-icon"></i>
-                                </div>
-                            </li>
-
-                            <!-- Notifications -->
-                            <li class="nav-item dropdown notification-item">
-                                <a href="#" class="nav-link notification-link" data-toggle="dropdown">
-                                    <i class="fas fa-bell notification-icon"></i>
-                                    <span class="notification-badge">3</span>
+                        <!-- Simple Admin Actions -->
+                        <ul class="navbar-nav ml-auto admin-nav-right">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link admin-link">
+                                    <i class="fas fa-cog"></i>
+                                    <span class="d-none d-lg-inline-block ml-1">Settings</span>
                                 </a>
-                                <div class="dropdown-menu notification-dropdown">
-                                    <div class="notification-header">
-                                        <h6>Notifications</h6>
-                                        <span class="badge badge-primary">3 New</span>
-                                    </div>
-                                    <div class="notification-item-wrapper">
-                                        <a href="#" class="notification-item-link">
-                                            <div class="notification-content">
-                                                <i class="fas fa-shopping-cart notification-item-icon text-success"></i>
-                                                <div class="notification-text">
-                                                    <span class="notification-title">New Order #1234</span>
-                                                    <span class="notification-time">2 minutes ago</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="notification-item-link">
-                                            <div class="notification-content">
-                                                <i class="fas fa-exclamation-triangle notification-item-icon text-warning"></i>
-                                                <div class="notification-text">
-                                                    <span class="notification-title">Low Stock Alert</span>
-                                                    <span class="notification-time">1 hour ago</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="notification-item-link">
-                                            <div class="notification-content">
-                                                <i class="fas fa-user-plus notification-item-icon text-info"></i>
-                                                <div class="notification-text">
-                                                    <span class="notification-title">New Customer Registered</span>
-                                                    <span class="notification-time">3 hours ago</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="notification-footer">
-                                        <a href="#" class="btn btn-sm btn-outline-primary">View All</a>
-                                    </div>
-                                </div>
                             </li>
-
-                            <!-- User Account -->
-                            <li class="nav-item dropdown user-dropdown">
-                                <a href="#" class="nav-link user-link" data-toggle="dropdown">
-                                    <div class="user-info">
-                                        <img src="~/images/default-avatar.png" alt="User" class="user-avatar" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiMyRThCNTciLz4KPHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4PSIxMCIgeT0iMTAiPgo8cGF0aCBkPSJNMTIgMTJDMTQuNzYgMTIgMTcgOS43NiAxNyA3QzE3IDQuMjQgMTQuNzYgMiAxMiAyQzkuMjQgMiA3IDQuMjQgNyA3QzcgOS43NiA5LjI0IDEyIDEyIDEyWk0xMiAxNEM5LjMzIDE0IDQgMTUuMzQgNCAxOFYyMEgyMFYxOEMyMCAxNS4zNCAxNC42NyAxNCAxMiAxNFoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo8L3N2Zz4K'">
-                                        <div class="user-details d-none d-lg-block">
-                                            <span class="user-name">Admin User</span>
-                                            <span class="user-role">Store Manager</span>
-                                        </div>
-                                        <i class="fas fa-chevron-down user-arrow d-none d-lg-block"></i>
-                                    </div>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link admin-link logout-link">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span class="d-none d-lg-inline-block ml-1">Logout</span>
                                 </a>
-                                <div class="dropdown-menu user-dropdown-menu">
-                                    <div class="user-dropdown-header">
-                                        <img src="~/images/default-avatar.png" alt="User" class="dropdown-user-avatar" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiMyRThCNTciLz4KPHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4PSIxMCIgeT0iMTAiPgo8cGF0aCBkPSJNMTIgMTJDMTQuNzYgMTIgMTcgOS43NiAxNyA3QzE3IDQuMjQgMTQuNzYgMiAxMiAyQzkuMjQgMiA3IDQuMjQgNyA3QzcgOS43NiA5LjI0IDEyIDEyIDEyWk0xMiAxNEM5LjMzIDE0IDQgMTUuMzQgNCAxOFYyMEgyMFYxOEMyMCAxNS4zNCAxNC42NyAxNCAxMiAxNFoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo8L3N2Zz4K'">
-                                        <div class="dropdown-user-info">
-                                            <span class="dropdown-user-name">Admin User</span>
-                                            <span class="dropdown-user-email">admin@freshmart.com</span>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item user-dropdown-item" href="#">
-                                        <i class="fas fa-user item-icon"></i>
-                                        <span>My Profile</span>
-                                    </a>
-                                    <a class="dropdown-item user-dropdown-item" href="#">
-                                        <i class="fas fa-cog item-icon"></i>
-                                        <span>Settings</span>
-                                    </a>
-                                    <a class="dropdown-item user-dropdown-item" href="#">
-                                        <i class="fas fa-question-circle item-icon"></i>
-                                        <span>Help & Support</span>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item user-dropdown-item logout-item" href="#">
-                                        <i class="fas fa-sign-out-alt item-icon"></i>
-                                        <span>Logout</span>
-                                    </a>
-                                </div>
                             </li>
                         </ul>
                     </div>

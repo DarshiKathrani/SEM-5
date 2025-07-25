@@ -478,24 +478,23 @@
    ======================================== */
 
 .modern-navbar-wrapper {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
     z-index: 1030;
-    backdrop-filter: blur(10px);
 }
 
 .modern-navbar {
     padding: 0;
     background: transparent;
-    min-height: 55px;
+    min-height: 45px;
 }
 
 /* Mobile Brand */
 .mobile-brand {
     color: white !important;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     text-decoration: none;
 }
@@ -551,58 +550,43 @@
 }
 
 .modern-nav-link {
-    color: rgba(255, 255, 255, 0.9) !important;
-    padding: 8px 12px !important;
-    border-radius: 6px;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
+    color: rgba(255, 255, 255, 0.95) !important;
+    padding: 6px 10px !important;
+    border-radius: 4px;
+    transition: all 0.2s ease;
     text-decoration: none;
+    font-size: 13px;
 }
 
-.modern-nav-link::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transition: left 0.5s;
-}
 
-.modern-nav-link:hover::before {
-    left: 100%;
-}
 
 .modern-nav-link:hover {
     color: white !important;
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.15);
     text-decoration: none;
 }
 
 .nav-item-content {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
 }
 
 .nav-icon {
-    font-size: 14px;
-    width: 16px;
+    font-size: 12px;
+    width: 14px;
     text-align: center;
 }
 
 .nav-text {
     font-weight: 500;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .dropdown-arrow {
-    font-size: 9px;
-    margin-left: 3px;
-    transition: transform 0.3s ease;
+    font-size: 8px;
+    margin-left: 2px;
+    transition: transform 0.2s ease;
 }
 
 .modern-nav-item.show .dropdown-arrow {
@@ -674,303 +658,35 @@
     opacity: 0.7;
 }
 
-/* Right Side Navigation */
-.modern-nav-right {
+/* Simple Admin Navigation */
+.admin-nav-right {
     margin: 0;
     padding: 0;
     align-items: center;
 }
 
-/* Search Bar */
-.search-item {
-    margin-right: 10px;
-}
-
-.search-container {
-    position: relative;
-    width: 200px;
-}
-
-.search-input {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-    color: white;
-    padding: 6px 35px 6px 12px;
-    font-size: 13px;
-    transition: all 0.3s ease;
-}
-
-.search-input::placeholder {
-    color: rgba(255, 255, 255, 0.6);
-}
-
-.search-input:focus {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: var(--secondary-color);
-    box-shadow: 0 0 0 0.2rem rgba(50, 205, 50, 0.25);
-    color: white;
-}
-
-.search-icon {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 12px;
-}
-
-/* Notifications */
-.notification-item {
-    margin-right: 8px;
-}
-
-.notification-link {
-    position: relative;
-    padding: 8px !important;
-    border-radius: 6px;
-    transition: all 0.3s ease;
-}
-
-.notification-link:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.notification-icon {
-    font-size: 16px;
-    color: rgba(255, 255, 255, 0.9);
-}
-
-.notification-badge {
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    background: #ff4757;
-    color: white;
-    border-radius: 50%;
-    width: 16px;
-    height: 16px;
-    font-size: 9px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    animation: pulse 2s infinite;
-}
-
-.notification-dropdown {
-    background: white;
-    border: none;
-    border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-    padding: 0;
-    margin-top: 8px;
-    width: 320px;
-    right: 0;
-    left: auto;
-}
-
-.notification-header {
-    padding: 15px 20px;
-    border-bottom: 1px solid #eee;
-    display: flex;
-    justify-content: between;
-    align-items: center;
-}
-
-.notification-header h6 {
-    margin: 0;
-    color: #333;
-    font-weight: 600;
-}
-
-.notification-item-wrapper {
-    max-height: 300px;
-    overflow-y: auto;
-}
-
-.notification-item-link {
-    display: block;
-    padding: 12px 20px;
-    color: #333;
-    text-decoration: none;
-    border-bottom: 1px solid #f5f5f5;
-    transition: background 0.3s ease;
-}
-
-.notification-item-link:hover {
-    background: #f8f9fa;
-    text-decoration: none;
-    color: #333;
-}
-
-.notification-content {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.notification-item-icon {
-    font-size: 16px;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.05);
-}
-
-.notification-text {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.notification-title {
-    font-weight: 600;
-    font-size: 13px;
-    color: #333;
-}
-
-.notification-time {
-    font-size: 11px;
-    color: #666;
-}
-
-.notification-footer {
-    padding: 12px 20px;
-    text-align: center;
-    border-top: 1px solid #eee;
-}
-
-/* User Dropdown */
-.user-dropdown {
-    margin-left: 6px;
-}
-
-.user-link {
+.admin-link {
+    color: rgba(255, 255, 255, 0.9) !important;
     padding: 6px 10px !important;
-    border-radius: 6px;
-    transition: all 0.3s ease;
-}
-
-.user-link:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.user-info {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.user-avatar {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    object-fit: cover;
-}
-
-.user-details {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-}
-
-.user-name {
-    color: white;
-    font-weight: 600;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    text-decoration: none;
     font-size: 12px;
-}
-
-.user-role {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 10px;
-}
-
-.user-arrow {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 9px;
-    transition: transform 0.3s ease;
-}
-
-.user-dropdown.show .user-arrow {
-    transform: rotate(180deg);
-}
-
-.user-dropdown-menu {
-    background: white;
-    border: none;
-    border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-    padding: 0;
-    margin-top: 8px;
-    min-width: 250px;
-    right: 0;
-    left: auto;
-}
-
-.user-dropdown-header {
-    padding: 20px;
-    border-bottom: 1px solid #eee;
     display: flex;
     align-items: center;
-    gap: 12px;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    color: white;
-    border-radius: 12px 12px 0 0;
 }
 
-.dropdown-user-avatar {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    object-fit: cover;
-}
-
-.dropdown-user-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.dropdown-user-name {
-    font-weight: 600;
-    font-size: 14px;
-    color: white;
-}
-
-.dropdown-user-email {
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.user-dropdown-item {
-    padding: 12px 20px;
-    color: #333;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    transition: all 0.3s ease;
+.admin-link:hover {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.15);
     text-decoration: none;
 }
 
-.user-dropdown-item:hover {
-    background: #f8f9fa;
-    color: var(--primary-color);
-    text-decoration: none;
-    transform: translateX(4px);
+.logout-link:hover {
+    background: rgba(255, 76, 76, 0.2) !important;
 }
 
-.logout-item:hover {
-    background: #ffebee;
-    color: #d32f2f;
-}
+
 
 /* ========================================
    RESPONSIVE STYLES - MEDIA QUERIES
@@ -1025,31 +741,17 @@
         text-align: center;
     }
     
-    /* Modern Navbar Mobile Styles */
-    .search-container {
+    /* Admin Navbar Mobile Styles */
+    .admin-nav-right {
+        flex-direction: row;
+        justify-content: center;
         width: 100%;
-        margin: 10px 0;
-    }
-    
-    .search-item {
-        margin: 0;
-        width: 100%;
-    }
-    
-    .modern-nav-right {
-        flex-direction: column;
-        width: 100%;
-        margin-top: 15px;
-        gap: 10px;
-    }
-    
-    .notification-item,
-    .user-dropdown {
-        margin: 5px 0;
+        margin-top: 10px;
+        gap: 15px;
     }
     
     .modern-nav-link {
-        padding: 15px 20px !important;
+        padding: 10px 15px !important;
         justify-content: center;
     }
     
@@ -1059,14 +761,6 @@
         box-shadow: none;
         border: 1px solid #eee;
         margin: 5px 0;
-    }
-    
-    .user-details {
-        display: flex !important;
-    }
-    
-    .user-arrow {
-        display: block !important;
     }
 }
 
