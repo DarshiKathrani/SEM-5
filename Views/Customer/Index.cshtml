@@ -2,22 +2,26 @@
 
 @if (TempData["SuccessMessage"] != null)
 {
-    <div class="alert alert-success">
+    <div class="alert alert-success alert-dismissible fade show">
+        <i class="fas fa-check-circle me-2"></i>
         @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
 }
 @if (TempData["ErrorMessage"] != null)
 {
-    <div class="alert alert-danger">
+    <div class="alert alert-danger alert-dismissible fade show">
+        <i class="fas fa-exclamation-triangle me-2"></i>
         @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
 }
 
 <div class="pagetitle">
-    <h1>Customer Management</h1>
+    <h1><i class="fas fa-users text-success me-2"></i>Customer Management</h1>
     <nav>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")" class="text-success">Home</a></li>
             <li class="breadcrumb-item">Tables</li>
             <li class="breadcrumb-item active">Customer Data</li>
         </ol>
@@ -27,49 +31,117 @@
 <section class="section">
     <div class="row">
         <div class="col-lg-12">
-            <div class="card">
+            <div class="card shadow-sm border-success">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-address-book me-2"></i>Customer Directory
+                    </h5>
+                </div>
                 <div class="card-body">
-                    <h5 class="card-title">Customer Directory</h5>
-                    
-                    <table class="table table-striped datatable">
-                        <thead>
-                            <tr>
-                                <th>Customer ID</th>
-                                <th>Customer Name</th>
-                                <th>Phone</th>
-                                <th>Address</th>
-                                <th>Email</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (Model != null && Model.Any())
-                            {
-                                foreach (var item in Model)
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover datatable">
+                            <thead class="table-success">
+                                <tr>
+                                    <th><i class="fas fa-id-badge me-1"></i>Customer ID</th>
+                                    <th><i class="fas fa-user me-1"></i>Customer Name</th>
+                                    <th><i class="fas fa-phone me-1"></i>Phone</th>
+                                    <th><i class="fas fa-map-marker-alt me-1"></i>Address</th>
+                                    <th><i class="fas fa-envelope me-1"></i>Email</th>
+                                    <th class="text-center"><i class="fas fa-cogs me-1"></i>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td><span class="badge bg-success">#@item.CustomerID</span></td>
+                                            <td class="fw-bold text-dark">@item.CustomerName</td>
+                                            <td><span class="text-primary">@item.Phone</span></td>
+                                            <td>@item.Address</td>
+                                            <td><span class="text-info">@item.Email</span></td>
+                                            <td class="text-center">
+                                                <a asp-action="AddEdit" asp-controller="Customer" asp-route-id="@item.CustomerID" class="btn btn-sm btn-outline-success me-1" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a asp-action="Delete" asp-controller="Customer" asp-route-id="@item.CustomerID" class="btn btn-sm btn-outline-danger" title="Delete" onclick="return confirm('Are you sure you want to delete this customer?');">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
                                 {
                                     <tr>
-                                        <td>@item.CustomerID</td>
-                                        <td>@item.CustomerName</td>
-                                        <td>@item.Phone</td>
-                                        <td>@item.Address</td>
-                                        <td>@item.Email</td>
-                                        <td>
-                                            <a asp-action="AddEdit" asp-controller="Customer" asp-route-id="@item.CustomerID" class="btn btn-sm btn-primary">Edit</a>
-                                            <a asp-action="Delete" asp-controller="Customer" asp-route-id="@item.CustomerID" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this customer?');">Delete</a>
+                                        <td colspan="6" class="text-center text-muted py-4">
+                                            <i class="fas fa-users-slash fs-1 text-muted mb-3 d-block"></i>
+                                            <h5>No customers found</h5>
                                         </td>
                                     </tr>
                                 }
-                            }
-                            else
-                            {
-                                <tr>
-                                    <td colspan="6" class="text-center text-muted">No customers found</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<style>
+/* Grocery Theme Colors */
+:root {
+    --grocery-primary: #2ecc71;
+    --grocery-secondary: #27ae60;
+    --grocery-accent: #f39c12;
+    --grocery-danger: #e74c3c;
+}
+
+.table-success th {
+    background-color: var(--grocery-primary) !important;
+    color: white !important;
+    border-color: var(--grocery-secondary) !important;
+}
+
+.card.border-success {
+    border-color: var(--grocery-primary) !important;
+}
+
+.bg-success {
+    background-color: var(--grocery-primary) !important;
+}
+
+.text-success {
+    color: var(--grocery-primary) !important;
+}
+
+.btn-outline-success {
+    color: var(--grocery-primary);
+    border-color: var(--grocery-primary);
+}
+
+.btn-outline-success:hover {
+    background-color: var(--grocery-primary);
+    border-color: var(--grocery-primary);
+}
+
+.badge.bg-success {
+    background-color: var(--grocery-primary) !important;
+}
+
+.breadcrumb-item.active {
+    color: var(--grocery-primary);
+}
+
+.alert-success {
+    background-color: rgba(46, 204, 113, 0.1);
+    border-color: var(--grocery-primary);
+    color: var(--grocery-secondary);
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(46, 204, 113, 0.05);
+}
+</style>
