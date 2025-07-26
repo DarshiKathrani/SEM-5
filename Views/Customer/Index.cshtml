@@ -17,15 +17,22 @@
     </div>
 }
 
-<div class="pagetitle">
-    <h1><i class="fas fa-users text-success me-2"></i>Customer Management</h1>
-    <nav>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")" class="text-success">Home</a></li>
-            <li class="breadcrumb-item">Tables</li>
-            <li class="breadcrumb-item active">Customer Data</li>
-        </ol>
-    </nav>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="pagetitle">
+        <h1><i class="fas fa-users text-success me-2"></i>Customer Management</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")" class="text-success">Home</a></li>
+                <li class="breadcrumb-item">Tables</li>
+                <li class="breadcrumb-item active">Customer Data</li>
+            </ol>
+        </nav>
+    </div>
+    <div>
+        <a asp-action="AddEdit" asp-controller="Customer" class="btn btn-success">
+            <i class="fas fa-plus me-2"></i>Add Customer
+        </a>
+    </div>
 </div>
 
 <section class="section">
@@ -78,6 +85,10 @@
                                         <td colspan="6" class="text-center text-muted py-4">
                                             <i class="fas fa-users-slash fs-1 text-muted mb-3 d-block"></i>
                                             <h5>No customers found</h5>
+                                            <p class="text-muted">Start by adding your first customer.</p>
+                                            <a asp-action="AddEdit" asp-controller="Customer" class="btn btn-success">
+                                                <i class="fas fa-plus me-2"></i>Add First Customer
+                                            </a>
                                         </td>
                                     </tr>
                                 }
