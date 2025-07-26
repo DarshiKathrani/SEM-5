@@ -51,7 +51,7 @@
                                 <tr>
                                     <th><i class="fas fa-id-badge me-1"></i>Product ID</th>
                                     <th><i class="fas fa-shopping-bag me-1"></i>Product Name</th>
-                                    <th><i class="fas fa-tag me-1"></i>Category ID</th>
+                                    <th><i class="fas fa-tag me-1"></i>Category</th>
                                     <th><i class="fas fa-dollar-sign me-1"></i>Price</th>
                                     <th><i class="fas fa-chart-line me-1"></i>Used Stock</th>
                                     <th><i class="fas fa-warehouse me-1"></i>Remaining Stock</th>
@@ -66,7 +66,7 @@
                                         <tr>
                                             <td><span class="badge bg-success">#@item.ProductID</span></td>
                                             <td class="fw-bold text-dark">@item.ProductName</td>
-                                            <td><span class="badge bg-info">#@item.CategoryID</span></td>
+                                            <td><span class="badge bg-info">@item.CategoryName</span></td>
                                             <td><span class="text-primary fw-bold">$@item.Price.ToString("0.00")</span></td>
                                             <td>
                                                 <span class="badge bg-success">@item.UsedStock</span>
