@@ -69,14 +69,10 @@
                                             <td><span class="badge bg-info">#@item.CategoryID</span></td>
                                             <td><span class="text-primary fw-bold">$@item.Price.ToString("0.00")</span></td>
                                             <td>
-                                                <span class="badge bg-warning text-dark">@item.UsedStock</span>
+                                                <span class="badge bg-info">@item.UsedStock</span>
                                             </td>
                                             <td>
-                                                @{
-                                                    var stockClass = item.RemainingStock > 50 ? "bg-success" : 
-                                                                   item.RemainingStock > 10 ? "bg-warning text-dark" : "bg-danger";
-                                                }
-                                                <span class="badge @stockClass">@item.RemainingStock</span>
+                                                <span class="badge bg-success">@item.RemainingStock</span>
                                             </td>
                                             <td class="text-center">
                                                 <a asp-action="AddEdit" asp-controller="Product" asp-route-id="@item.ProductID" class="btn btn-sm btn-outline-success me-1" title="Edit">
