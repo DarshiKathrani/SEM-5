@@ -1,0 +1,75 @@
+@model ProductCategoryModel
+
+@{
+    ViewData["Title"] = Model.CategoryID == 0 ? "Add Category" : "Edit Category";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="pagetitle">
+        <h1>
+            <i class="fas @(Model.CategoryID == 0 ? "fa-plus-circle" : "fa-edit") text-success me-2"></i>
+            @ViewData["Title"]
+        </h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")" class="text-success">Home</a></li>
+                <li class="breadcrumb-item"><a href="@Url.Action("CategoryList", "ProductCategory")" class="text-success">Categories</a></li>
+                <li class="breadcrumb-item active">@(Model.CategoryID == 0 ? "Add Category" : "Edit Category")</li>
+            </ol>
+        </nav>
+    </div>
+    <div>
+        <a asp-action="CategoryList" asp-controller="ProductCategory" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Back to List
+        </a>
+    </div>
+</div>
+
+<section class="section">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow-sm border-success">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-th-large me-2"></i>Category Information
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="AddEdit" asp-controller="ProductCategory" method="post">
+                        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+                        <input type="hidden" asp-for="CategoryID" />
+
+                        <div class="row">
+                            <div class="col-md-12 mb-4">
+                                <label asp-for="CategoryName" class="form-label fw-bold">
+                                    <i class="fas fa-tag text-success me-2"></i>Category Name
+                                </label>
+                                <input asp-for="CategoryName" class="form-control form-control-lg" placeholder="Enter category name (e.g., Fruits, Vegetables, Dairy)" />
+                                <span asp-validation-for="CategoryName" class="text-danger small"></span>
+                                <div class="form-text">
+                                    <i class="fas fa-info-circle text-info me-1"></i>
+                                    Choose a descriptive name for your product category
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a asp-action="CategoryList" asp-controller="ProductCategory" class="btn btn-outline-secondary">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </a>
+                            <button type="submit" class="btn btn-success btn-lg px-4">
+                                <i class="fas @(Model.CategoryID == 0 ? "fa-plus" : "fa-save") me-2"></i>
+                                @(Model.CategoryID == 0 ? "Add Category" : "Update Category")
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
