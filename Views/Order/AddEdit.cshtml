@@ -1,0 +1,93 @@
+﻿@model OrderModel
+
+@{
+    ViewData["Title"] = Model.OrderID == 0 ? "Add Order" : "Edit Order";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="pagetitle">
+        <h1>
+            <i class="fas @(Model.OrderID == 0 ? "fa-user-plus" : "fa-user-edit") text-success me-2"></i>
+            @ViewData["Title"]
+        </h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")" class="text-success">Home</a></li>
+                <li class="breadcrumb-item"><a href="@Url.Action("OrderList", "Order")" class="text-success">Orders</a></li>
+                <li class="breadcrumb-item active">@(Model.CustomerID == 0 ? "Add Order" : "Edit Order")</li>
+            </ol>
+        </nav>
+    </div>
+    <div>
+        <a asp-action="OrderList" asp-controller="Order" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Back to List
+        </a>
+    </div>
+</div>
+
+<section class="section">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-success">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-user-circle me-2"></i>Order Information
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="AddEdit" asp-controller="Order" method="post">
+                        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+                        <input type="hidden" asp-for="OrderID" />
+
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label asp-for="OrderDate" class="form-label fw-bold">
+                                    <i class="fas fa-user text-success me-2"></i>Order Date
+                                </label>
+                                <input asp-for="OrderDate" class="form-control form-control-lg" placeholder="Enter order date" />
+                                <span asp-validation-for="OrderDate" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="TotalAmount" class="form-label fw-bold">
+                                    <i class="fas fa-phone text-primary me-2"></i>Total Amount
+                                </label>
+                                <input asp-for="TotalAmount" class="form-control" placeholder="Enter Total Amount" />
+                                <span asp-validation-for="TotalAmount" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="CustomerID" class="form-label fw-bold">
+                                    <i class="fas fa-tag text-info me-2"></i>Customer
+                                </label>
+                                <select asp-for="CustomerID" class="form-select" asp-items="@(new SelectList(Model.CustomerList, "CustomerID", "CustomerName"))">
+                                    <option value="">-- Select Customer --</option>
+                                </select>
+                                <span asp-validation-for="CustomerID" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a asp-action="OrderList" asp-controller="Order" class="btn btn-outline-secondary">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </a>
+                            <button type="submit" class="btn btn-success btn-lg px-4">
+                                <i class="fas @(Model.OrderID == 0 ? "fa-plus" : "fa-save") me-2"></i>
+                                @(Model.OrderID == 0 ? "Add Order" : "Update Order")
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
