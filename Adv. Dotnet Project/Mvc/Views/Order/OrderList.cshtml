@@ -1,0 +1,107 @@
+﻿@model List<OrderModel>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+        <i class="fas fa-check-circle me-2"></i>
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show">
+        <i class="fas fa-exclamation-triangle me-2"></i>
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<style>
+    .order-header { background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); color: #fff; padding: 2rem; border-radius: 15px; margin-bottom: 2rem; box-shadow: 0 8px 32px rgba(21,128,61,.35); }
+    .page-chip { background: rgba(255,255,255,.2); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.3); color:#fff; font-weight:600; padding:.5rem 1rem; border-radius:25px; }
+    .order-card { border:none; border-radius:15px; box-shadow:0 4px 20px rgba(0,0,0,.08); overflow:hidden; }
+    .order-card-header { background: linear-gradient(135deg, #198754 0%, #157347 100%); color:#fff; padding:1.5rem; border:none; }
+    .order-table thead th { background:#f8f9fa; border:none; font-weight:600; color:#495057; padding:1rem; text-transform:uppercase; font-size:.9rem; letter-spacing:.5px; }
+    .order-table tbody tr { transition: all .3s ease; border:none; }
+    .order-table tbody tr:hover { background: linear-gradient(135deg, rgba(22,163,74,.05), rgba(21,128,61,.05)); transform: scale(1.01); }
+    .order-badge { background:#198754; color:#fff; padding:.5rem 1rem; border-radius:20px; font-weight:600; font-size:.85rem; }
+    .btn-icon{ width:35px; height:35px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; transition:.3s; border:2px solid transparent; }
+    .btn-icon:hover{ transform:scale(1.1); }
+    .btn-edit{ background: linear-gradient(135deg,#198754,#157347); color:#fff; border-color:#198754; }
+    .btn-delete{ background: linear-gradient(135deg,#dc3545,#b02a37); color:#fff; border-color:#dc3545; }
+    .empty-state{ text-align:center; padding:3rem 2rem; color:#6c757d; }
+    .empty-state i{ font-size:4rem; margin-bottom:1rem; opacity:.5; }
+    .add-order-btn{ background: linear-gradient(135deg,#16a34a,#15803d); color:#fff; border:none; padding:.75rem 2rem; border-radius:25px; font-weight:600; text-decoration:none; display:inline-flex; gap:.5rem; align-items:center; transition:.3s; }
+    .add-order-btn:hover{ color:#fff; transform:translateY(-2px); box-shadow:0 8px 25px rgba(21,128,61,.35); }
+</style>
+
+<div class="order-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="mb-2"><i class="fas fa-shopping-bag me-2"></i>Order Management</h1>
+            <p class="mb-0 opacity-75">Manage customer orders and totals</p>
+        </div>
+        <span class="page-chip">@DateTime.Now.ToString("dd MMM yyyy")</span>
+    </div>
+</div>
+
+<div class="d-flex justify-content-end mb-3">
+    <a asp-action="AddEdit" asp-controller="Order" class="add-order-btn"><i class="fas fa-plus"></i> Add Order</a>
+    </div>
+
+<section class="section">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="order-card">
+                <div class="order-card-header">
+                    <h5 class="mb-0"><i class="fas fa-receipt me-2"></i>Order Directory</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table order-table">
+                            <thead>
+                                <tr>
+                                    <th><i class="fas fa-id-badge me-1"></i>Order ID</th>
+                                    <th><i class="fas fa-user me-1"></i>Customer</th>
+                                    <th><i class="fas fa-calendar-alt me-1"></i>Order Date</th>
+                                    <th><i class="fas fa-dollar-sign me-1"></i>Total Amount</th>
+                                    <th class="text-center"><i class="fas fa-cogs me-1"></i>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td><span class="order-badge">#@item.OrderID</span></td>
+                                            <td><span class="fw-bold text-dark">@item.CustomerName</span></td>
+                                            <td><span class="text-muted">@item.OrderDate.ToString("MMM dd, yyyy")</span></td>
+                                            <td><span class="text-primary fw-bold">$@item.TotalAmount.ToString("0.00")</span></td>
+                                            <td class="text-center">
+                                                <a asp-action="AddEdit" asp-controller="Order" asp-route-id="@item.OrderID" class="btn btn-icon btn-edit me-1" title="Edit" data-bs-toggle="tooltip" data-bs-title="Edit"><i class="fas fa-edit"></i></a>
+                                                <a asp-action="Delete" asp-controller="Order" asp-route-id="@item.OrderID" class="btn btn-icon btn-delete" title="Delete" data-bs-toggle="tooltip" data-bs-title="Delete" onclick="return confirm('Are you sure you want to delete this order?');"><i class="fas fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="5" class="empty-state">
+                                            <i class="fas fa-shopping-bag"></i>
+                                            <h5>No orders found</h5>
+                                            <p class="text-muted">Start by adding your first order.</p>
+                                            <a asp-action="AddEdit" asp-controller="Order" class="add-order-btn"><i class="fas fa-plus me-2"></i>Add First Order</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

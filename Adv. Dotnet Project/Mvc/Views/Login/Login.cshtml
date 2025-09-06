@@ -1,0 +1,190 @@
+﻿@{
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+}
+
+<div class="auth-header">
+    <div class="auth-logo">
+        <i class="fas fa-shopping-cart"></i>
+    </div>
+    <h1 class="auth-title">Welcome Back</h1>
+    <p class="auth-subtitle">Sign in to your FreshMart account</p>
+</div>
+
+@if (ViewBag.Error != null)
+{
+    <div class="error-message">
+        <i class="fas fa-exclamation-circle me-2"></i>
+        @ViewBag.Error
+    </div>
+}
+
+<form method="post" class="auth-form">
+    <div class="form-group">
+        <label class="form-label">Username</label>
+        <div class="input-wrapper">
+            <i class="fas fa-user input-icon"></i>
+            <input type="text"
+                   class="form-control"
+                   name="CustomerName"
+                   placeholder="Enter your username"
+                   required
+                   autocomplete="username" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">Password</label>
+        <div class="input-wrapper">
+            <i class="fas fa-lock input-icon"></i>
+            <input type="password"
+                   class="form-control"
+                   name="Password"
+                   placeholder="Enter your password"
+                   required
+                   autocomplete="current-password" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="rememberMe" name="RememberMe">
+                <label class="form-check-label" for="rememberMe">
+                    Remember me
+                </label>
+            </div>
+            <a href="#" class="auth-link" style="font-size: 14px;">Forgot Password?</a>
+        </div>
+    </div>
+
+    <button type="submit" class="btn-auth">
+        <i class="fas fa-sign-in-alt me-2"></i>
+        Sign In
+    </button>
+</form>
+
+<div class="auth-footer">
+    <p class="mb-0">
+        Don't have an account?
+        <a asp-action="Register" asp-controller="Login" class="auth-link">Create one here</a>
+    </p>
+</div>
+
+<style>
+    .auth-form {
+        margin-bottom: 0;
+    }
+
+    .input-wrapper {
+        position: relative;
+    }
+
+    .form-check {
+        margin-bottom: 0;
+    }
+
+    .form-check-input {
+        width: 18px;
+        height: 18px;
+        margin-top: 0.25rem;
+        border: 2px solid var(--border-color);
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .form-check-input:focus {
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.1);
+        }
+
+    .form-check-label {
+        color: var(--text-dark);
+        font-size: 14px;
+        font-weight: 500;
+        margin-left: 8px;
+        cursor: pointer;
+    }
+
+    .auth-form .form-group:last-of-type {
+        margin-bottom: 30px;
+    }
+
+    .btn-auth i {
+        font-size: 14px;
+    }
+
+    .error-message {
+        display: flex;
+        align-items: center;
+        animation: slideInDown 0.3s ease;
+    }
+
+    @@keyframes slideInDown {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    .form-control:invalid {
+        border-color: #e74c3c;
+    }
+
+    .form-control:valid {
+        border-color: var(--primary-color);
+    }
+
+    .form-control:focus:invalid {
+        box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+    }
+
+    .form-control:focus:valid {
+        box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.1);
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add form validation styling
+        const inputs = document.querySelectorAll('.form-control');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                if (this.value.trim() !== '') {
+                    this.classList.add('is-valid');
+                    this.classList.remove('is-invalid');
+                } else {
+                    this.classList.add('is-invalid');
+                    this.classList.remove('is-valid');
+                }
+            });
+
+            input.addEventListener('input', function() {
+                if (this.classList.contains('is-invalid') && this.value.trim() !== '') {
+                    this.classList.remove('is-invalid');
+                    this.classList.add('is-valid');
+                }
+            });
+        });
+
+        // Add loading state to submit button
+        const form = document.querySelector('.auth-form');
+        const submitBtn = document.querySelector('.btn-auth');
+
+        form.addEventListener('submit', function() {
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Signing In...';
+            submitBtn.disabled = true;
+        });
+    });
+</script>

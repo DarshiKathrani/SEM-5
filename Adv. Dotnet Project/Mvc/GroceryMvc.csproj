@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\assets1\.DS_Store" />
+    <None Include="wwwroot\assets1\images\.DS_Store" />
+    <None Include="wwwroot\assets1\images\logo\.DS_Store" />
+    <None Include="wwwroot\assets1\images\logo\actual-size\.DS_Store" />
+    <None Include="wwwroot\assets1\js\.DS_Store" />
+    <None Include="wwwroot\assets1\vendors\.DS_Store" />
+    <None Include="wwwroot\assets1\vendors\bootstrap-icons\.DS_Store" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+  </ItemGroup>
+
+</Project>
